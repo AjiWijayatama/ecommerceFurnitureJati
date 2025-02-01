@@ -1,0 +1,263 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* AWAL HEADER CSS */
+.header-main-container{
+	margin: 0;             
+	padding: 0;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	
+}
+
+ /* AWAL Navbar Header  */
+.container-header-navbar-service {
+	font-family: "Montserrat", sans-serif;
+	display: flex;
+	width: 100%;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.container-header-item {
+	background-color: black;
+	display: flex;
+	flex: 1;
+	max-width: 90%;
+	justify-content: center;
+}
+
+.navbar-item-service{
+	padding: 10px 90px;
+	display: flex;
+}
+
+.navbar-item-service a{
+	text-decoration: none;
+	color: white;
+	font-size: 12px;
+}
+
+.navbar-item-service a:hover{
+	text-decoration: underline;
+}
+
+.navbar-item-contact{
+	display: flex;
+	flex: 1;
+	max-width: 10%;
+	background-color: black;
+	justify-content: center;
+}
+
+.navbar-item-contact a{
+	text-decoration: none;
+	color: white;
+	padding: 10px;
+	font-size: 12px;
+}
+
+.navbar-item-contact a:hover{
+	text-decoration: underline;
+}
+ /* END Navbar Header  */
+
+
+ /* AWAL Header Column Search */
+.container-header-column-search {
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.container-logo-company{
+	padding: 15px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex: 1;
+	max-width: 15%;
+}
+
+.navbar-logo-company{
+	padding: 10px;
+	text-decoration: none;
+	font-size: 20px;
+	color: rgba(0, 0, 0, 0.75);
+}
+
+
+.icon-searchbar {
+	width: max-content;
+	display: flex;
+	flex: 1;
+	max-width: 70%;
+	align-items: center;
+	padding: 14px;
+	border-radius: 28px;
+	background-color: #f6f6f6;/* Warna yang wajib untuk searchbar */
+	width: 600px;
+	transition: box-shadow 0.25s;
+}
+
+.icon-searchbar:focus-within{
+	box-shadow: 0 0 2px rgba(0, 0, 0, 0.75)
+}
+.search-input {
+	font-size: 16px;
+	font-family: "Lexend", sans-serif;
+	color: #333333; /* Warna yang wajib untuk keyword seacrh */
+	margin-left: 14px; 
+	outline: none;
+	border: none;
+	background: transparent;
+	flex: 1; /* Auto Untuk ngikutin width dari si class icon-searchbar */
+}
+
+.search-input::placeholder,
+.search-icon{
+	color: rgba(0, 0, 0, 0.25); /* Warna yang wajib untuk placeholder seacrh */
+}
+
+
+.icon-wishlist {
+	padding: 15px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex: 1;
+	max-width: 15%;
+}
+
+.navbar-logo-wishlist{
+	padding: 10px;
+	text-decoration: none;
+	font-size: 20px;
+	transition: box-shadow 0.25s;
+}
+
+.navbar-logo-wishlist:focus-within{
+	box-shadow: 0 0 2px rgba(0, 0, 0, 0.75)
+
+}
+
+ /* END Header Column Search */
+
+
+ /* AWAL Header Categories */
+.container-header-categories{
+	display: flex;
+	width: 100%;
+	justify-content: center;
+	align-items: center;
+}
+
+.navbar-list-categories{
+	display: flex;
+	flex: 1;
+	max-width: 70%;
+	justify-content: space-around;
+}
+
+.navbar-item-categories a {
+	font-family: "Montserrat", sans-serif;
+	text-decoration: none;
+	color: black;
+	font-size: 14px;
+	font-weight: 300;
+}
+
+.navbar-item-categories a:hover{
+	color: rgba(0, 0, 0, 0.75);
+}
+
+ /* AWAL Header Categories */
+ 
+/* END HEADER CSS */
+
+
+/* AWAL CONTENT */
+.container-main-content{
+	margin: 0;             
+	padding: 0;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.btn{
+	--bs-btn-font-weight: 550;
+}
+
+.c-item {
+	width: 1000px;
+	height: 300px;
+
+}
+
+.c-img {
+
+	width: 100%;
+	height: 100%;
+	object-fit:cover;
+}
+
+/* PRODUK UNGGULAN AWAL */
+
+.containerProdcut{
+	display: flex;
+	width: 100%;
+	justify-content: center;
+	align-items: center;
+}
+.list-product{
+	border: 1px solid blue;
+	padding: 50px;
+	display: flex;
+	flex: 1;
+	justify-content: space-around;
+}
+
+/* PRODUK UNGGULAN AKHIR */
+/* END CONTENT */
+
+
+/* AWAL FOOTER */
+.container-main-footer{
+	background-color: #48A6A7;
+	margin: 0;             
+	padding: 0;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.container-link-footer{
+	margin: 10px;
+	font-family: "Montserrat", sans-serif;
+	width: 100%;	
+	justify-content: center;
+}
+
+.footer-link{
+	display: flex;
+	flex: 1;
+	justify-content: space-evenly;
+}
+
+.container-list-icon-footer{
+	font-family: "Montserrat", sans-serif;
+	width: 100%;	
+	justify-content: center;
+}
+
+.footer-icon{
+	margin: 10px;
+	display: flex;
+	flex: 1;
+	justify-content: space-evenly;
+}
+/* END FOOTER */
