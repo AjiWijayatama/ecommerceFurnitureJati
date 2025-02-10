@@ -2,7 +2,29 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Login */
+.wrapper-login{
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+.login{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	min-height: 100vh;
+	background: seagreen;
+}
+
+
+
+
 /* AWAL HEADER CSS */
+
+.wrapper-homepage{
+	background-color: #f6f6f6;
+}
 .header-main-container{
 	margin: 0;             
 	padding: 0;
@@ -192,36 +214,16 @@
 	--bs-btn-font-weight: 550;
 }
 
-.c-item {
-	width: 1000px;
-	height: 300px;
 
-}
-
-.c-img {
-
-	width: 100%;
-	height: 100%;
-	object-fit:cover;
-}
 
 /* PRODUK UNGGULAN AWAL */
 
-.containerProdcut{
-	display: flex;
-	width: 100%;
-	justify-content: center;
-	align-items: center;
-}
-.list-product{
-	border: 1px solid blue;
-	padding: 50px;
-	display: flex;
-	flex: 1;
-	justify-content: space-around;
-}
-
 /* PRODUK UNGGULAN AKHIR */
+
+
+/* Custom Furniture */
+
+/* END Custom Furniture */
 /* END CONTENT */
 
 
@@ -261,3 +263,28 @@
 	justify-content: space-evenly;
 }
 /* END FOOTER */
+
+.section {
+	position: relative;
+	overflow: hidden;
+	color: white;
+	padding: 50px;
+	height: 400px;
+}
+.left {
+	background: linear-gradient(to right, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.1)), url('sofa-background.jpg');
+	background-size: cover;
+	background-position: center;
+}
+.right {
+	background: linear-gradient(to right, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.1)), url('room-inspiration.jpg');
+	background-size: cover;
+	background-position: center;
+}
+.btn-custom {
+	background-color: white;
+	color: black;
+	font-weight: bold;
+	padding: 10px 20px;
+	border-radius: 5px;
+}
