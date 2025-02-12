@@ -20,28 +20,34 @@
 <body>
   <div class="wrapper-login">
     <div class="login">
-      <div class="wrapper">
-        <form action="">
-          <h1>Login</h1>
+      <div class="wrapper-login-form">
+        <form action="{{ route('login.store') }}" method="POST">
+          @csrf
+          <h1 class="h1 h1Login">Login</h1>
+          
+          <!-- Input Email -->
           <div class="input-box">
-            <input type="text" placeholder="Username" required>
-            <i class='bx bxs-user'></i>
+            <input type="email" name="email" placeholder="Email" required class="input-email">
+            <i class='bx bxs-user icons-ep'></i>
           </div>
+          
+          <!-- Input Password -->
           <div class="input-box">
-            <input type="password" placeholder="Password" required>
-            <i class='bx bxs-lock' ></i>
+            <input type="password" name="password" placeholder="Password" required class="input-email"> 
+            <i class='bx bxs-lock icons-ep'></i>
           </div>
-    
+
           <div class="remember-forgot">
-            <label for="">
-              <input type="checkbox"> Remember Me
+            <label for="" class="label-rf">
+              <input type="checkbox" name="remember" class="input-rf"> Remember Me
             </label>
-            <a href="">Forgot Password?</a>
+            <a href="" class="a-rf">Forgot Password?</a>
           </div>
-    
-          <button type="submit" class="btn">Login</button>
+
+          <button type="submit" class="btn login-btn">Login</button>
+
           <div class="register-link">
-            <p>Don't have an account? <a href="">Register</a></p>
+            <p class="p-register">Don't have an account? <a href="{{ route('register.form') }}" class="a-register">Register</a></p>
           </div>
         </form>
       </div>

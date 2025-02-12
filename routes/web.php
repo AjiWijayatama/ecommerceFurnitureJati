@@ -1,18 +1,26 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
+
+Route::get('/register', [AuthController::class, 'showRegisterForm'])->name('register.form');
+Route::post('/register', [AuthController::class, 'register'])->name('register.store');
+
+Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login.form');
+Route::post('/login', [AuthController::class, 'login'])->name('login.store');
 
 Route::get('/', function () {
     return view('index');
+})->name('index'); 
+
+Route::get('/loginRegister', function () {
+    return view('loginRegister');
 });
+
 
 
 Route::get('/katalog', function () {
     return view('katalog');
-});
-
-Route::get('/loginRegister', function () {
-    return view('loginRegister');
 });
 
 Route::get('/caraPesan', function () {
@@ -49,3 +57,8 @@ Route::get('/testimoni', function () {
 Route::get('/page2', function () {
     return view('customFurniture.page2');
 });
+
+
+
+
+

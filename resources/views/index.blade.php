@@ -64,7 +64,7 @@
                    </button>
 
                    <button type="button" class="btn btn-outline-secondary" style="border: none">
-                       <a class="" href="loginRegister" role="button">Daftar</a> 
+                       <a class="" href="register" role="button">Daftar</a> 
                    </button>
 
                    <a href="#" aria-label="Wishlist" class="navbar-logo-wishlist">
