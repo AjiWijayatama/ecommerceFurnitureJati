@@ -2,6 +2,20 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ProductController;
+
+Route::get('/admin', function () {
+    return view('layouts.admin');
+});
+Route::get('/admin-user', function () {
+    return view('admin.user');
+});
+Route::get('/admin-review', function () {
+    return view('admin.review');
+});
+
+Route::get('/admin-product', [ProductController::class, 'index']);
+
 
 Route::get('/register', [AuthController::class, 'showRegisterForm'])->name('register.form');
 Route::post('/register', [AuthController::class, 'register'])->name('register.store');
