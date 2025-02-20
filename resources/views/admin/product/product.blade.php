@@ -5,6 +5,11 @@
 @endsection
 
 @section('content')
+@if (session('success'))
+    <div class="alert alert-success border-left-success alert-dismissible fade show text-white" role="alert" onclick="this.style.display='none';">
+        {{ session('success') }}
+    </div>
+@endif
     <div class="row">
         <div class="col-md-12">
             <div class="card">

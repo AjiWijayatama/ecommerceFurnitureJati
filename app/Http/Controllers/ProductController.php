@@ -15,12 +15,12 @@ class ProductController extends Controller
     public function index()
     {
         $products = Product::all();
-        return view('admin.product', compact('products'));
+        return view('admin.product.product', compact('products'));
     }
 
     public function create()
     {
-        return view('admin.create');
+        return view('admin.product.create');
     }
 
     public function store(Request $request)
@@ -28,7 +28,7 @@ class ProductController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'slug' => 'required|string|max:255|unique:products',
-            'deskripsi' => 'nullable|string',
+            'deskripsi' => 'string',
             'kategori' => 'required|in:minimalis,ukiran',
             'harga' => 'required|numeric|min:0',
             'stok' => 'required|integer|min:0',
@@ -45,7 +45,7 @@ class ProductController extends Controller
             }
         }
 
-        return redirect()->route('products.index')->with('success', 'Produk berhasil ditambahkan.');
+        return redirect('/admin-product')->with('success', 'Produk berhasil ditambahkan.');
     }
 
     public function edit(Product $product)
@@ -58,7 +58,7 @@ class ProductController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'slug' => "required|string|max:255|unique:products,slug,{$product->id}",
-            'deskripsi' => 'nullable|string',
+            'deskripsi' => 'string',
             'kategori' => 'required|in:minimalis,ukiran',
             'harga' => 'required|numeric|min:0',
             'stok' => 'required|integer|min:0',
@@ -69,13 +69,14 @@ class ProductController extends Controller
         $product->update($request->only(['name', 'slug', 'deskripsi', 'kategori', 'harga', 'stok', 'discount']));
 
         if ($request->hasFile('images')) {
+            $product->images()->delete();
             foreach ($request->file('images') as $image) {
                 $path = $image->store('images', 'public');
                 $product->images()->create(['link' => $path]);
             }
         }
 
-        return redirect()->route('products.index')->with('success', 'Produk berhasil diperbarui.');
+        return redirect('/admin-product')->with('success', 'Produk berhasil di Perbaharui.');
     }
 
     public function destroy(Product $product)
@@ -88,7 +89,7 @@ class ProductController extends Controller
 
     public function show(Product $product)
     {
-        return view('admin.product.show', compact('product'));
+        return view('admin.product.detail', compact('product'));
     }
 }
 

@@ -16,7 +16,7 @@ Route::get('/admin-review', function () {
 
 Route::get('/admin-product', [ProductController::class, 'index']);
 Route::get('/admin-product/create', [ProductController::class, 'create'])->name('products.create');  // perhatikan penamaan route
-Route::resource('products', ProductController::class);
+Route::resource('products', ProductController::class);// Kalo buat sekaligus nambah index,create,store,edit,update,show,delete, tetapi harus ada 6 6 nya kalo misalnya di tambah yang lain gpp yang penting ada 6 6 nya itu
 
 
 Route::get('/register', [AuthController::class, 'showRegisterForm'])->name('register.form');
