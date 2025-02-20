@@ -15,6 +15,8 @@ Route::get('/admin-review', function () {
 });
 
 Route::get('/admin-product', [ProductController::class, 'index']);
+Route::get('/admin-product/create', [ProductController::class, 'create'])->name('products.create');  // perhatikan penamaan route
+Route::resource('products', ProductController::class);
 
 
 Route::get('/register', [AuthController::class, 'showRegisterForm'])->name('register.form');
