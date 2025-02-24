@@ -45,7 +45,7 @@ class ProductController extends Controller
             }
         }
 
-        return redirect('/admin-product')->with('success', 'Produk berhasil ditambahkan.');
+        return redirect()->route('products.index')->with('success', 'Produk berhasil ditambahkan.');
     }
 
     public function edit(Product $product)
@@ -76,7 +76,7 @@ class ProductController extends Controller
             }
         }
 
-        return redirect('/admin-product')->with('success', 'Produk berhasil di Perbaharui.');
+        return redirect()->route('products.index')->with('success', 'Produk berhasil di Perbaharui.');
     }
 
     public function destroy(Product $product)

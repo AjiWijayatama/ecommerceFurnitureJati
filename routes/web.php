@@ -14,8 +14,6 @@ Route::get('/admin-review', function () {
     return view('admin.review');
 });
 
-Route::get('/admin-product', [ProductController::class, 'index']);
-Route::get('/admin-product/create', [ProductController::class, 'create'])->name('products.create');  // perhatikan penamaan route
 Route::resource('products', ProductController::class);// Kalo buat sekaligus nambah index,create,store,edit,update,show,delete, tetapi harus ada 6 6 nya kalo misalnya di tambah yang lain gpp yang penting ada 6 6 nya itu
 
 
@@ -26,7 +24,7 @@ Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login.form
 Route::post('/login', [AuthController::class, 'login'])->name('login.store');
 
 Route::get('/', function () {
-    return view('index');
+    return view('user.home');
 })->name('index'); 
 
 Route::get('/loginRegister', function () {

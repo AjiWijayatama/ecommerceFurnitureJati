@@ -76,14 +76,12 @@
                             @enderror
                         </div>
                     
-                        <div class="form-group">
-                            <label for="images">Gambar Produk</label>
-                            <input type="file" name="images[]" id="images" class="form-control @error('images.*') is-invalid @enderror" multiple>
-                            <small class="form-text text-muted">Pilih beberapa gambar untuk produk. Maksimal 2MB per gambar.</small>
-                            @error('images.*')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
+                        <label for="images">Gambar Produk</label>
+                        <input type="file" name="images[]" id="images" class="form-control @error('images.*') is-invalid @enderror" multiple>
+                        <small class="form-text text-muted">Pilih beberapa gambar untuk produk. Maksimal 2MB per gambar.</small>
+                        @error('images.*')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
                     
                         <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
                     </form>
