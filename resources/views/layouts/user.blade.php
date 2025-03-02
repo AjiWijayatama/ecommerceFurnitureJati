@@ -23,7 +23,7 @@
        @include('components.header-user')
        @yield('content')
        @include('components.footer-user')
-
+      
 
 
         

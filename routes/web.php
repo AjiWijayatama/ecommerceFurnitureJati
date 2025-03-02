@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\UserProductController;
 
 Route::get('/admin', function () {
     return view('layouts.admin');
@@ -15,6 +16,7 @@ Route::get('/admin-review', function () {
 });
 
 Route::resource('products', ProductController::class);// Kalo buat sekaligus nambah index,create,store,edit,update,show,delete, tetapi harus ada 6 6 nya kalo misalnya di tambah yang lain gpp yang penting ada 6 6 nya itu
+Route::resource('produk', UserProductController::class);// Kalo buat sekaligus nambah index,create,store,edit,update,show,delete, tetapi harus ada 6 6 nya kalo misalnya di tambah yang lain gpp yang penting ada 6 6 nya itu
 
 
 Route::get('/register', [AuthController::class, 'showRegisterForm'])->name('register.form');
@@ -31,12 +33,6 @@ Route::get('/loginRegister', function () {
     return view('loginRegister');
 });
 
-
-
-Route::get('/katalog', function () {
-    return view('katalog');
-});
-
 Route::get('/caraPesan', function () {
     return view('caraPesan');
 });
@@ -50,8 +46,11 @@ Route::get('/kontak', function () {
 Route::get('/statusPengerjaan', function () {
     return view('statusPengerjaan');
 });
-Route::get('/produk', function () {
-    return view('produk');
+// Route::get('/produk', function () {
+//     return view('produk');
+// });
+Route::get('/detailProduk', function () {
+    return view('detailProduk');
 });
 Route::get('/customFurniture', function () {
     return view('customFurniture');
@@ -71,8 +70,3 @@ Route::get('/testimoni', function () {
 Route::get('/page2', function () {
     return view('customFurniture.page2');
 });
-
-
-
-
-
