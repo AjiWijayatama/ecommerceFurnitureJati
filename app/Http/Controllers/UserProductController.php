@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth; // Pastikan ini di bagian atas
 use App\Models\Product;
 use App\Models\Image;
 
@@ -14,8 +15,9 @@ class UserProductController extends Controller
     public function index()
     {
         $products = Product::all();
-        return view('produk',compact('products'));
+        return view('user.produk',compact('products'));
     }
+
 
     /**
      * Show the form for creating a new resource.
@@ -64,5 +66,13 @@ class UserProductController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    public function invoice()
+    {
+        $products = Product::all();
+        $user = Auth::user(); // Ambil data user yang sedang login
+
+        return view('user.invoiceCustomer', compact('products', 'user'));
     }
 }

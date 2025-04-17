@@ -31,12 +31,13 @@ class ProductController extends Controller
             'deskripsi' => 'string',
             'kategori' => 'required|in:minimalis,ukiran',
             'harga' => 'required|numeric|min:0',
+            'ukuran' => 'required|string|max:255',
             'stok' => 'required|integer|min:0',
             'discount' => 'nullable|integer|min:0|max:100',
             'images.*' => 'nullable|image|mimes:jpeg,png,jpg|max:2048'
         ]);
 
-        $product = Product::create($request->only(['name', 'slug', 'deskripsi', 'kategori', 'harga', 'stok', 'discount']));
+        $product = Product::create($request->only(['name', 'slug', 'deskripsi', 'kategori', 'harga','ukuran', 'stok', 'discount']));
 
         if ($request->hasFile('images')) {
             foreach ($request->file('images') as $image) {
@@ -60,13 +61,14 @@ class ProductController extends Controller
             'slug' => "required|string|max:255|unique:products,slug,{$product->id}",
             'deskripsi' => 'string',
             'kategori' => 'required|in:minimalis,ukiran',
+            'ukuran' => 'required|string|max:255',
             'harga' => 'required|numeric|min:0',
             'stok' => 'required|integer|min:0',
             'discount' => 'nullable|integer|min:0|max:100',
             'images.*' => 'nullable|image|mimes:jpeg,png,jpg|max:2048'
         ]);
 
-        $product->update($request->only(['name', 'slug', 'deskripsi', 'kategori', 'harga', 'stok', 'discount']));
+        $product->update($request->only(['name', 'slug', 'deskripsi', 'kategori', 'harga','ukuran', 'stok', 'discount']));
 
         if ($request->hasFile('images')) {
             $product->images()->delete();

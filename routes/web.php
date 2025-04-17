@@ -14,6 +14,7 @@ Route::get('/admin-user', function () {
 Route::get('/admin-review', function () {
     return view('admin.review');
 });
+Route::get('/invoiceCustomer', [UserProductController::class, 'invoice'])->name('user.invoice');
 
 Route::resource('products', ProductController::class);// Kalo buat sekaligus nambah index,create,store,edit,update,show,delete, tetapi harus ada 6 6 nya kalo misalnya di tambah yang lain gpp yang penting ada 6 6 nya itu
 Route::resource('produk', UserProductController::class);// Kalo buat sekaligus nambah index,create,store,edit,update,show,delete, tetapi harus ada 6 6 nya kalo misalnya di tambah yang lain gpp yang penting ada 6 6 nya itu
@@ -24,6 +25,8 @@ Route::post('/register', [AuthController::class, 'register'])->name('register.st
 
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login.form');
 Route::post('/login', [AuthController::class, 'login'])->name('login.store');
+
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::get('/', function () {
     return view('user.home');

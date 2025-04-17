@@ -8,23 +8,27 @@
             <div class="card h-100">
                 <a href="#">
                     @if($product->images->isNotEmpty())
-                        <img src="{{ Storage::url($product->images->first()->link) }}" alt="Product Image" width="100%">
+                        <img src="{{ Storage::url($product->images->first()->link) }}"
+                             alt="Product Image"
+                             class="product-image img-fluid">
                     @else
-                        <span>No Image</span>
+                        <div class="product-image no-image d-flex align-items-center justify-content-center text-muted">
+                            No Image
+                        </div>
                     @endif
                 </a>
                 <div class="card-body">
                     <h5 class="card-title">{{ $product->name }}</h5>
                     <h5 class="card-title">Rp {{ number_format($product->harga, 0, ',', '.') }}</h5>
                     <p class="text-muted">{{ $product->kategori }}</p>
-                    <button type="button" class="btn btn-primary" style="border: none">
-                        <a class="" href="{{ route('produk.show', $product) }}" role="button">Beli</a> 
-                    </button>
+                    <p class="text-muted">{{ $product->ukuran }}</p>
+                    <a href="{{ route('produk.show', $product) }}" class="btn btn-primary">Beli</a>
                 </div>
             </div>
         </div>
         @endforeach
     </div>
+    
 
     <!-- Pagination -->
     <nav aria-label="Page navigation" class="mt-4">

@@ -15,6 +15,24 @@
     <!-- Styles / Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])      
     <!-- Styles / Scripts -->
+    <style>
+    .product-image {
+        width: 100%;
+        height: 200px; /* Kamu bisa atur sesuai preferensi */
+        object-fit: cover;
+        border-top-left-radius: 0.375rem; /* sesuai Bootstrap card */
+        border-top-right-radius: 0.375rem;
+    }
+
+    .no-image {
+        width: 100%;
+        height: 200px;
+        background-color: #f8f9fa;
+        font-size: 1rem;
+        border: 1px dashed #ccc;
+    }
+
+    </style>
 </head>
 <body class="font-sans antialiased dark:bg-black dark:text-white/50">
     
