@@ -68,11 +68,19 @@ class UserProductController extends Controller
         //
     }
 
-    public function invoice()
-    {
-        $products = Product::all();
-        $user = Auth::user(); // Ambil data user yang sedang login
+    // public function invoice()
+    // {
+    //     $products = Product::all();
+    //     $user = Auth::user(); // Ambil data user yang sedang login
 
-        return view('user.invoiceCustomer', compact('products', 'user'));
+    //     return view('user.invoiceCustomer', compact('products', 'user'));
+    // }
+    public function invoice(Request $request)
+    {
+        $product = Product::findOrFail($request->product_id);
+        $quantity = $request->quantity;
+        $user = Auth::user();
+        return view('user.invoiceCustomer', compact('product', 'quantity', 'user'));
     }
+
 }

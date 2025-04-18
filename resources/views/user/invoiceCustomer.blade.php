@@ -71,89 +71,43 @@
           <div class="col-md-8">
             <div class="card card-user">
               <div class="card-header">
-                <h5 class="card-title">Edit Profile</h5>
+                <h5 class="card-title">Invoice Pembelian</h5>
               </div>
               <div class="card-body">
-                <form>
-                  <div class="row">
-                    <div class="col-md-5 pr-1">
-                      <div class="form-group">
-                        <label>Company (disabled)</label>
-                        <input type="text" class="form-control" disabled="" placeholder="Company" value="Creative Code Inc.">
-                      </div>
-                    </div>
-                    <div class="col-md-3 px-1">
-                      <div class="form-group">
-                        <label>Username</label>
-                        <input type="text" class="form-control" placeholder="Username" value="michael23">
-                      </div>
-                    </div>
-                    <div class="col-md-4 pl-1">
-                      <div class="form-group">
-                        <label for="exampleInputEmail1">Email address</label>
-                        <input type="email" class="form-control" placeholder="Email">
-                      </div>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-md-6 pr-1">
-                      <div class="form-group">
-                        <label>First Name</label>
-                        <input type="text" class="form-control" placeholder="Company" value="Chet">
-                      </div>
-                    </div>
-                    <div class="col-md-6 pl-1">
-                      <div class="form-group">
-                        <label>Last Name</label>
-                        <input type="text" class="form-control" placeholder="Last Name" value="Faker">
-                      </div>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-md-12">
-                      <div class="form-group">
-                        <label>Address</label>
-                        <input type="text" class="form-control" placeholder="Home Address" value="Melbourne, Australia">
-                      </div>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-md-4 pr-1">
-                      <div class="form-group">
-                        <label>City</label>
-                        <input type="text" class="form-control" placeholder="City" value="Melbourne">
-                      </div>
-                    </div>
-                    <div class="col-md-4 px-1">
-                      <div class="form-group">
-                        <label>Country</label>
-                        <input type="text" class="form-control" placeholder="Country" value="Australia">
-                      </div>
-                    </div>
-                    <div class="col-md-4 pl-1">
-                      <div class="form-group">
-                        <label>Postal Code</label>
-                        <input type="number" class="form-control" placeholder="ZIP Code">
-                      </div>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-md-12">
-                      <div class="form-group">
-                        <label>About Me</label>
-                        <textarea class="form-control textarea">Oh so, your weak rhyme You doubt I'll bother, reading into it</textarea>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="update ml-auto mr-auto">
-                      <button type="submit" class="btn btn-primary btn-round">Update Profile</button>
-                    </div>
-                  </div>
-                </form>
+                <table class="table table-borderless">
+                  <tr>
+                    <th>Nama Produk</th>
+                    <td>: {{ $product->name }}</td>
+                  </tr>
+                  <tr>
+                    <th>Harga Satuan</th>
+                    <td>: Rp{{ number_format($product->price, 0, ',', '.') }}</td>
+                  </tr>
+                  <tr>
+                    <th>Jumlah Beli</th>
+                    <td>: {{ $quantity }}</td>
+                  </tr>
+                  <tr>
+                    <th>Total Harga</th>
+                    <td>: <strong>Rp{{ number_format((float) $product->harga * (int) $quantity, 2) }}</strong></td>
+                  </tr>
+                  <tr>
+                    <th>Tanggal Transaksi</th>
+                    <td>: {{ \Carbon\Carbon::now()->format('d M Y, H:i') }}</td>
+                  </tr>
+                </table>
+          
+                <div class="alert alert-warning mt-4" role="alert">
+                  Silakan lakukan pembayaran ke rekening yang telah ditentukan dan unggah bukti pembayaran Anda di halaman riwayat pesanan.
+                </div>
+          
+                <div class="text-center mt-4">
+                  <a href="#" class="btn btn-primary">Kembali ke Beranda</a>
+                </div>
               </div>
             </div>
           </div>
+          
         </div>
       </div>
     </div>

@@ -15,6 +15,8 @@ Route::get('/admin-review', function () {
     return view('admin.review');
 });
 Route::get('/invoiceCustomer', [UserProductController::class, 'invoice'])->name('user.invoice');
+Route::post('/invoice', [UserProductController::class, 'invoice'])->name('invoice');
+
 
 Route::resource('products', ProductController::class);// Kalo buat sekaligus nambah index,create,store,edit,update,show,delete, tetapi harus ada 6 6 nya kalo misalnya di tambah yang lain gpp yang penting ada 6 6 nya itu
 Route::resource('produk', UserProductController::class);// Kalo buat sekaligus nambah index,create,store,edit,update,show,delete, tetapi harus ada 6 6 nya kalo misalnya di tambah yang lain gpp yang penting ada 6 6 nya itu

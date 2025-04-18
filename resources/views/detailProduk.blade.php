@@ -41,6 +41,8 @@
     </style>
 </head>
 <body>
+    
+    
     <div class="container mt-4">
         <div class="row g-4">
             <!-- Kolom Kiri: Gambar Produk -->
@@ -105,11 +107,12 @@
                             <span class="float-end fw-medium">Rp <span id="totalPrice">{{ number_format($product->harga, 0, ',', '.') }}</span></span>
                         </div>
                     
-                        <div class="mb-3 border-top pt-2">
-                            <span class="fw-bold">Subtotal</span>
-                            <span class="float-end fw-bold">Rp <span id="subtotal">{{ number_format($product->harga, 0, ',', '.') }}</span></span>
-                        </div>
-                    
+                        <form action="{{ route('invoice') }}" method="POST">
+                            @csrf
+                            <input type="hidden" name="product_id" value="{{ $product->id }}">
+                            <input type="hidden" id="form_quantity" name="quantity" value="1">
+                            <button type="submit" class="btn btn-custom w-100 fw-bold mt-2">Beli Sekarang</button>
+                        </form>
                         <button class="btn btn-custom w-100 fw-bold">Tambah ke Keranjang</button>
                     </div>
                     
@@ -153,6 +156,17 @@
                                     alert("Stok tidak mencukupi!");
                                 }
                             });
+                            document.getElementById("form_quantity").value = quantity;
+                            function updateSubtotal() {
+                                let quantity = parseInt(quantityInput.value);
+                                let newTotal = pricePerItem * quantity;
+                                totalItems.innerText = quantity;
+                                totalPrice.innerText = newTotal.toLocaleString("id-ID");
+
+                                // Sinkronkan form input hidden quantity
+                                document.getElementById("form_quantity").value = quantity;
+                            }
+
                         });
                     </script>
                     
