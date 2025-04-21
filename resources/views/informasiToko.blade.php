@@ -113,9 +113,9 @@
         <div class="row">
             <!-- Sidebar -->
             <div class="col-md-3 sidebar">
-                <a href="caraPesan">Cara Pesan</a>
+                {{-- <a href="caraPesan">Cara Pesan</a> --}}
                 <a href="informasiToko">Informasi Toko</a>
-                <a href="statusPengerjaan">Status Pengerjaan</a>
+                <a href="statusPengerjaan">Status Pembayaran</a>
                 <a href="kontak">Kontak</a>
             </div>
     
@@ -125,32 +125,9 @@
     
                 <!-- The Story Section -->
                 <div class="story-section">
-                    <h3>THE STORY.</h3>
                     <p>
-                        Two bestfriends <strong>Vincent Rompies</strong> and <strong>Deddy Mahendra Desta</strong>, shared the same interests, 
-                        dreams & passions since childhood. The duo have been given the opportunity to work together 
-                        in the early 2000s and now in their 30th year of friendship, they’ve created a platform to 
-                        inspire youngsters to be themselves and proud to share and express themselves through art and music.
-                    </p>
-                    <img src="https://via.placeholder.com/700x300" alt="Vincent & Desta">
-                </div>
-    
-                <!-- About Section -->
-                <div class="about-section">
-                    <div class="about-box">
-                        <div class="logo">
-                            <img src="https://via.placeholder.com/50" alt="Vindes Logo">
-                            <span>VIN</span><span class="pink">DES.</span>
-                        </div>
-                        <p>
-                            <strong>VINDES</strong> is a digital media and a platform where youngsters are able to 
-                            find their happiness, empower aspiration, collaborate with each other, and showcase their work. 
-                            We have a vision to contribute in creative and art industry of Indonesian youngsters 
-                            for create a productive and responsible generation.
-                        </p>
-                    </div>
-                </div>
-    
+                        Jl. Raya Kebagusan no.10 Pasar Minggu, Jakarta Selatan. Jam Operasional 08.00-17.00.
+                </div>    
             </div>
         </div>
     </div>

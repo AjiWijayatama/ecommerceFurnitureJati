@@ -3,15 +3,16 @@
     <!-- AWAL Navbar Header -->
     <nav class="container-header-navbar-service">
         <ul class="container-header-item">
+           {{-- <li class="navbar-item-service">
+               <a href="caraPesan">Cara Pesan</a>
+           </li> --}}
            <li class="navbar-item-service">
-               <a href="#">Cara Pesan</a>
+               <a href="informasiToko">Informasi Toko</a>
            </li>
            <li class="navbar-item-service">
-               <a href="#">Informasi Toko</a>
+               <a href="#">Status Pembayaran</a>
            </li>
-           <li class="navbar-item-service">
-               <a href="#">Status Pengerjaan</a>
-           </li>
+
         </ul>
         <div class="navbar-item-contact">
            <a href="#">Kontak</a>
@@ -23,7 +24,7 @@
     <div class="container-header-column-search my-2">
         <div class="container-logo-company">
             <a href="#" class="navbar-logo-company">
-                furnitureJatiInd
+                IndFurniture
             </a>
         </div>
         <form class="icon-searchbar">
@@ -67,9 +68,9 @@
             <li class="navbar-item-categories">
                 <a href="#">Furniture set</a>
             </li>
-            <li class="navbar-item-categories">
+            {{-- <li class="navbar-item-categories">
                 <a href="#">Perawatan Furniture</a>
-            </li>
+            </li> --}}
             <li class="navbar-item-categories">
                 <a href="#">Testimoni</a>
             </li>

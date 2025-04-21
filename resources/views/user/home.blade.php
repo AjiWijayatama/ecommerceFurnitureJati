@@ -10,7 +10,6 @@
     <button type="button" class="btn btn-outline-warning text-black border-secondary my-3" style="display: flex; ">
         <p class="d-inline-flex gap-1">
             <img src="/icons/error.svg" alt="">
-            <a href="kontak">Kontak</a>
             <a href="kontak" class="" role="button">
                 Jangan ragu untuk menghubungi Furniture Jati Indonesia melalui kontak yang tertera di website kami!!
             </a>
@@ -56,38 +55,47 @@
     </section>
     <!-- END DISKON -->
 
-    <!-- Testimoni -->
-    <section class="container">
-        <h5 class="h3 card-title font-bold">Testimoni</h5>
-        <div class="row justify-content-center">
-            <div class="col-12">
-                <div id="carouseltestimoni" class="carousel slide my-3">
-                    <div class="carousel-inner">
-                      <div class="carousel-item ratio ratio-21x9 active">
-                        <img src="/icons/1.jpeg" class="d-block w-100 ratio " alt="...">
-                      </div>
-                      <div class="carousel-item ratio ratio-21x9 ">
-                        <img src="/icons/2.jpeg" class="d-block w-100" alt="...">
-                      </div>
-                      <div class="carousel-item ratio ratio-21x9">
-                        <img src="/icons/WhatsApp Image 2024-11-25 at 23.51.53.jpeg" class="d-block w-100" alt="...">
-                      </div>
+    <!-- Awal Produk Unggulan -->
+    <div class="container px-0">
+        <h5 class="h3 card-title font-bold">Produk Unggulan</h5>
+        <div class="row"> 
+            <div class="col-3 mb-3 mb-sm-0"> 
+                <div class="card text-bg-dark border-none">
+                    <img src="/icons/PU/pu1.jpeg" class="card-img" alt="...">
+                    <div class="card-img-overlay justify-content-center d-flex items-center">
+                        <h5 class="h3 card-title text-center font-bold">Kursi Panjang</h5>
                     </div>
-                    <button class="carousel-control-prev" type="button" data-bs-target="#carouseltestimoni" data-bs-slide="prev">
-                      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                      <span class="visually-hidden">Previous</span>
-                    </button>
-                    <button class="carousel-control-next" type="button" data-bs-target="#carouseltestimoni" data-bs-slide="next">
-                      <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                      <span class="visually-hidden">Next</span>
-                    </button>
-                  </div>
+                </div>
+            </div>
+            <div class="col-3 mb-3 mb-sm-0"> 
+                <div class="card text-bg-dark border-none">
+                    <img src="/icons/PU/pu2.jpeg" class="card-img" alt="...">
+                    <div class="card-img-overlay justify-content-center d-flex items-center">
+                        <h5 class="h3 card-title text-center font-bold">Kursi Goyang</h5>
+                    </div>
+                </div>
+            </div>
+            <div class="col-3 mb-3 mb-sm-0"> 
+                <div class="card text-bg-dark border-none">
+                    <img src="/icons/PU/pu3.jpeg" class="card-img" alt="...">
+                    <div class="card-img-overlay justify-content-center d-flex items-center">
+                        <h5 class="h3 card-title text-center font-bold">Kursi Taman</h5>
+                    </div>
+                </div>
+            </div>
+            <div class="col-3 mb-3 mb-sm-0"> 
+                <div class="card text-bg-dark border-none">
+                    <img src="/icons/meja.jpg" class="card-img" alt="...">
+                    <div class="card-img-overlay justify-content-center d-flex items-center">
+                        <h5 class="h3 card-title text-center font-bold">Meja Ruang Tamu</h5>
+                    </div>
+                </div>
             </div>
         </div>
-    </section>
-    <!-- END Testimoni -->
+    </div>
+    <!-- END Produk Unggulan -->
 
-    <!-- Produk Unggulan -->
+    {{-- <!-- Produk Unggulan -->
     <section class="container container-custom">
         <h5 class="h3 card-title font-bold ">Produk Unggulan</h5>
         <div class="row justify-content-center" style="background-color: grey">
@@ -132,7 +140,7 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section> --}}
     
     <!-- END Katalog Produk -->
 
@@ -144,7 +152,7 @@
                 <h3 class="fw-bold text-uppercase">Pilih</h3>
                 <h1 class="fw-bold">Warnamu</h1>
                 <p>Temukan warna, model dan bahan sesuai selera anda</p>
-                <button class="btn btn-custom">GET ALL COLOR</button>
+                <button class="btn btn-custom">GET PRODUCT</button>
             </div>
             <div class="col-md-6 section right d-flex flex-column justify-content-center align-items-start">
                 <h3 class="fw-bold">Room ideas and inspiration</h3>
@@ -163,7 +171,7 @@
                 <div class="card text-bg-dark border-none">
                     <img src="/icons/meja.jpg" class="card-img" alt="...">
                     <div class="card-img-overlay justify-content-center d-flex items-center">
-                        <h5 class="h3 card-title text-center font-bold">Card title</h5>
+                        <h5 class="h3 card-title text-center font-bold">Set Ruang Tamu</h5>
                     </div>
                 </div>
             </div>
@@ -171,7 +179,7 @@
                 <div class="card text-bg-dark border-none">
                     <img src="/icons/meja.jpg" class="card-img" alt="...">
                     <div class="card-img-overlay justify-content-center d-flex items-center">
-                        <h5 class="h3 card-title text-center font-bold">Card title</h5>
+                        <h5 class="h3 card-title text-center font-bold">Set Meja Tidur</h5>
                     </div>
                 </div>
             </div>
@@ -179,7 +187,7 @@
                 <div class="card text-bg-dark border-none">
                     <img src="/icons/meja.jpg" class="card-img" alt="...">
                     <div class="card-img-overlay justify-content-center d-flex items-center">
-                        <h5 class="h3 card-title text-center font-bold">Card title</h5>
+                        <h5 class="h3 card-title text-center font-bold">Set Meja Makan</h5>
                     </div>
                 </div>
             </div>
@@ -187,7 +195,7 @@
                 <div class="card text-bg-dark border-none">
                     <img src="/icons/meja.jpg" class="card-img" alt="...">
                     <div class="card-img-overlay justify-content-center d-flex items-center">
-                        <h5 class="h3 card-title text-center font-bold">Card title</h5>
+                        <h5 class="h3 card-title text-center font-bold">Set Kursi Taman</h5>
                     </div>
                 </div>
             </div>
@@ -195,7 +203,7 @@
     </div>
     <!-- END Furniture Set -->
 
-    <!-- Perawatan Furniture -->
+    {{-- <!-- Perawatan Furniture -->
     <section class="container px-0 my-3">
         <div class="row">
             <div class="col-12">
@@ -216,6 +224,6 @@
             </div>
         </div>
     </section>
-    <!-- END Perawatan Furniture -->
+    <!-- END Perawatan Furniture --> --}}
  </main>
 @endsection

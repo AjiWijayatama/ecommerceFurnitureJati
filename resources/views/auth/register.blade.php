@@ -44,38 +44,38 @@
             <h1 class="h1 h1Login">Register</h1>
             
             <!-- Input Name -->
-            <div class="input-box">
+            <div class="input-box d-flex align-items-center">
               <input type="text" name="name" placeholder="Full Name" required class="input-email">
               <i class='bx bxs-user'></i>
             </div>
 
             <!-- Input Email -->
-            <div class="input-box">
+            <div class="input-box d-flex align-items-center">
               <input type="email" name="email" placeholder="Email" required class="input-email">
               <i class='bx bxs-envelope'></i>
             </div>
             
             <!-- Input Password -->
-            <div class="input-box">
+            <div class="input-box d-flex align-items-center">
               <input type="password" name="password" placeholder="Password" required class="input-email"> 
               <i class='bx bxs-lock'></i>
             </div>
 
             <!-- Input Confirm Password -->
-            <div class="input-box">
+            <div class="input-box d-flex align-items-center">
               <input type="password" name="password_confirmation" placeholder="Confirm Password" required class="input-email"> 
               <i class='bx bxs-lock-alt'></i>
             </div>
 
             <!-- Input Phone Number -->
-            <div class="input-box">
+            <div class="input-box d-flex align-items-center">
               <input type="text" name="phone_number" placeholder="Phone Number" class="input-email">
               <i class='bx bxs-phone'></i>
             </div>
 
             <!-- Input Address -->
-            <div class="input-box">
-              <textarea name="address" placeholder="Address" class="input-email" rows="2"></textarea>
+            <div class="input-box d-flex align-items-center">
+              <textarea name="address" placeholder="Address" class="input-email" rows="3" ></textarea>
               <i class='bx bxs-home'></i>
             </div>
 

@@ -32,6 +32,7 @@ class AuthController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            'role' => 'user',  // Pastikan role default adalah user
         ]);
 
         return redirect()->route('login.form')->with('success', 'Register successful!');
@@ -50,24 +51,41 @@ class AuthController extends Controller
             'email' => 'required|email',
             'password' => 'required',
         ]);
+         // Tentukan email dan password admin
+        $adminEmail = 'admin1@gmail.com'; // Ganti dengan email admin yang kamu inginkan
+        $adminPassword = 'admin123'; // Ganti dengan password admin yang kamu inginkan
 
+        // Jika email yang dimasukkan adalah email admin
+        if ($request->email == $adminEmail && $request->password == $adminPassword) {
+            // Login sebagai admin secara manual
+            $user = User::where('email', $adminEmail)->first();
+            
+            if ($user) {
+                Auth::login($user); // Login user admin
+                return redirect()->route('admin.dashboard')->with('success', 'Welcome Admin!');
+            }else {
+                return back()->with('error', 'Admin not found in the system!');
+            } 
+        }
+        // Jika bukan admin, lakukan login seperti biasa
         $credentials = $request->only('email', 'password');
+        
+        if (Auth::attempt($credentials)) {
+            // Cek peran pengguna setelah login
+            $user = Auth::user();
 
+            // Jika admin, arahkan ke halaman dashboard admin
+            if ($user->role == 'admin') {
+                return redirect()->route('admin.dashboard')->with('success', 'Login Successful!');
+            } else {
+                // Jika bukan admin, arahkan ke halaman utama
+                return redirect()->route('index')->with('success', 'Login Successful!');
+            }
+        }
+        // Jika email atau password salah
+        return back()->with('error', 'Email or password is incorrect!')->with('signup_message', 'Belum memiliki akun? Daftar sekarang!');
         // Cek apakah email terdaftar di database
         $user = User::where('email', $request->email)->first();
-
-        if ($user) {
-            if (Auth::attempt($credentials)) {
-                return redirect()->route('index')->with('success', 'Login Successful!');
-            } else{
-                 // Jika password salah
-                 return back()->with('error', 'Invalid credentials!');
-            }
-
-        }
-
-        // Jika email tidak terdaftar
-        return back()->with('error', 'Email not registered!')->with('signup_message', 'Belum memiliki akun? Daftar sekarang!');
     }
 
     /**

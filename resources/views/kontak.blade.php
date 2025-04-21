@@ -72,6 +72,7 @@
             text-shadow: 1px 2px 0px white;
         }
         
+        
     </style>
 </head>
 </head>
@@ -80,9 +81,9 @@
         <div class="row">
             <!-- Sidebar -->
             <div class="col-md-3 sidebar">
-                <a href="caraPesan">Cara Pesan</a>
+                {{-- <a href="caraPesan">Cara Pesan</a> --}}
                 <a href="informasiToko">Informasi Toko</a>
-                <a href="statusPengerjaan">Status Pengerjaan</a>
+                <a href="statusPengerjaan">Status Pembayaran</a>
                 <a href="kontak">Kontak</a>
             </div>
     
@@ -95,14 +96,13 @@
                     <div class="kontak-box">
                         
                         <p>
-                            <strong>VINDES</strong> is a digital media and a platform where youngsters are able to 
-                            find their happiness, empower aspiration, collaborate with each other, and showcase their work. 
-                            We have a vision to contribute in creative and art industry of Indonesian youngsters 
-                            for create a productive and responsible generation.
+                            <strong>Nomor HP: 081314426814</strong>
+                        </p>
+                        <p>
+                            <strong>Social Media: </strong>
                         </p>
                     </div>
                 </div>
-    
             </div>
         </div>
     </div>

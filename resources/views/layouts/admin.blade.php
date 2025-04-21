@@ -22,7 +22,7 @@
 </head>
 
 <body class="">
-    <div class="wrapper ">
+  <div class="wrapper ">
     @include('components.sidebar'){{-- Untuk memanggil komponen yang ada di sidebade.blade.php --}}
         
     <div class="main-panel">
@@ -32,7 +32,6 @@
       <div class="content">
         @yield('content')
       </div>
-      
     </div>
   </div>
   <!--   Core JS Files   -->

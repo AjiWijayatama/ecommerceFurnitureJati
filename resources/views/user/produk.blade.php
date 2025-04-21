@@ -2,6 +2,16 @@
 @section('content')
 {{-- Awal Content --}}
 <section class="container mt-4">
+    <div class="text-center mt-5 py-2">
+        <span class="text-white bg-dark rounded-pill shadow" style="
+            font-size: 30px;
+            font-style: italic;
+            font-family: 'Georgia', serif;
+            padding: 4px 10px;
+        ">
+            Produk
+        </span>
+    </div>
     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4">
         @foreach ($products as $product)
         <div class="col">

@@ -23,6 +23,7 @@
                             <thead class="text-primary">
                                 <th>Name</th>
                                 <th>Deskripsi</th>
+                                <th>Ukuran</th>
                                 <th>Kategori</th>
                                 <th class="text-right">Harga</th>
                                 <th>Stok</th>
@@ -35,6 +36,7 @@
                                     <tr>
                                         <td>{{ $product->name }}</td>
                                         <td>{{ $product->deskripsi }}</td>
+                                        <td>{{ $product->ukuran }}</td> <!-- Menampilkan ukuran produk -->
                                         <td>{{ $product->kategori }}</td>
                                         <td class="text-right">Rp {{ number_format($product->harga, 0, ',', '.') }}</td>
                                         <td>{{ $product->stok }}</td>
