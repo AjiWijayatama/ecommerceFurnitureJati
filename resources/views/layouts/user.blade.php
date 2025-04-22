@@ -33,6 +33,7 @@
     }
 
     </style>
+    @yield('css')
 </head>
 <body class="font-sans antialiased dark:bg-black dark:text-white/50">
     
@@ -50,5 +51,5 @@
     <!-- DIV KESELURUHAN -->
     
 </body>
-
+@yield('js')
 </html>

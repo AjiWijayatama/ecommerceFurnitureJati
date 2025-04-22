@@ -42,7 +42,7 @@
             @else
                 <!-- Jika user belum login -->
                 <button type="button" class="btn btn-outline-secondary" style="border: none">
-                    <a href="{{ route('login.form') }}" role="button">Masuk</a> 
+                    <a href="{{ route('login') }}" role="button">Masuk</a> 
                 </button>
                 <button type="button" class="btn btn-outline-secondary" style="border: none">
                     <a href="{{ route('register.form') }}" role="button">Daftar</a> 

@@ -6,49 +6,86 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UserProductController;
 use App\Http\Controllers\AdminDashboardController;
 
-Route::middleware('auth')->group(function () {
-    // Semua rute di dalam group ini hanya untuk pengguna terautentikasi
-    Route::get('/admin/dashboard', [AdminDashboardController::class, 'index'])->middleware('auth')->name('admin.dashboard');
-    // Tambahkan rute terproteksi lain di sini...
-});
-
+/*
+|--------------------------------------------------------------------------
+| Guest Routes (Belum Login)
+|--------------------------------------------------------------------------
+*/
 Route::middleware('guest')->group(function () {
-    Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login'); // penting
+    Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login'); // Penting
     Route::post('/login', [AuthController::class, 'login'])->name('login.store');
 
     Route::get('/register', [AuthController::class, 'showRegisterForm'])->name('register.form');
     Route::post('/register', [AuthController::class, 'register'])->name('register.store');
 });
 
-Route::get('/login-form', [AuthController::class, 'showLoginForm'])->name('login.form');
-
-// Rute untuk halaman dashboard admin
-Route::middleware(['auth'])->get('/admin/dashboard', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
-
-Route::get('/admin', function () {
-    return view('layouts.admin');
-});
-Route::get('/admin-user', function () {
-    return view('admin.user');
-});
-Route::get('/admin-review', function () {
-    return view('admin.review');
-});
-Route::get('/invoiceCustomer', [UserProductController::class, 'invoice'])->name('user.invoice');
-Route::post('/invoice', [UserProductController::class, 'invoice'])->name('invoice');
-
-
-Route::resource('products', ProductController::class)->middleware('auth');// Kalo buat sekaligus nambah index,create,store,edit,update,show,delete, tetapi harus ada 6 6 nya kalo misalnya di tambah yang lain gpp yang penting ada 6 6 nya itu
-Route::resource('produk', UserProductController::class);// Kalo buat sekaligus nambah index,create,store,edit,update,show,delete, tetapi harus ada 6 6 nya kalo misalnya di tambah yang lain gpp yang penting ada 6 6 nya itu
-
-Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
-
+/*
+|--------------------------------------------------------------------------
+| Public Routes (Tanpa Login)
+|--------------------------------------------------------------------------
+*/
 Route::get('/', function () {
     return view('user.home');
-})->name('index'); 
+})->name('index');
 
-Route::get('/loginRegister', function () {
-    return view('loginRegister');
+Route::get('/produk', [UserProductController::class, 'index'])->name('produk.index');
+Route::get('/produk/{produk}', [UserProductController::class, 'show'])->name('produk.show');
+
+/*
+|--------------------------------------------------------------------------
+| Authenticated Routes (Setelah Login)
+|--------------------------------------------------------------------------
+*/
+Route::middleware('auth')->group(function () {
+
+    // Logout
+    Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
+    /*
+    |--------------------------------------------------------------------------
+    | Admin Area (Prefix: /admin)
+    |--------------------------------------------------------------------------
+    */
+    Route::prefix('admin')->group(function () {
+        Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');
+        Route::get('/', function () {
+            return view('layouts.admin');
+        })->name('index');
+        Route::get('/user', function () {
+            return view('admin.user');
+        })->name('user');
+        Route::get('/review', function () {
+            return view('admin.review');
+        })->name('review');
+
+        // Produk - Admin (ProductController)
+        Route::get('/products', [ProductController::class, 'index'])->name('products.index');
+        Route::get('/products/create', [ProductController::class, 'create'])->name('products.create');
+        Route::post('/products', [ProductController::class, 'store'])->name('products.store');
+        Route::get('/products/{product}', [ProductController::class, 'show'])->name('products.show');
+        Route::get('/products/{product}/edit', [ProductController::class, 'edit'])->name('products.edit');
+        Route::put('/products/{product}', [ProductController::class, 'update'])->name('products.update');
+        Route::delete('/products/{product}', [ProductController::class, 'destroy'])->name('products.destroy');
+    });
+
+    /*
+    |--------------------------------------------------------------------------
+    | Produk - User (UserProductController) - Akses Setelah Login (Ex: Beli)
+    |--------------------------------------------------------------------------
+    */
+    Route::get('/produk/create', [UserProductController::class, 'create'])->name('produk.create');
+    Route::post('/produk', [UserProductController::class, 'store'])->name('produk.store');
+    Route::get('/produk/{produk}/edit', [UserProductController::class, 'edit'])->name('produk.edit');
+    Route::put('/produk/{produk}', [UserProductController::class, 'update'])->name('produk.update');
+    Route::delete('/produk/{produk}', [UserProductController::class, 'destroy'])->name('produk.destroy');
+
+    /*
+    |--------------------------------------------------------------------------
+    | Fitur Tambahan
+    |--------------------------------------------------------------------------
+    */
+    Route::get('/invoiceCustomer', [UserProductController::class, 'invoice'])->name('user.invoice');
+    Route::post('/invoice', [UserProductController::class, 'invoice'])->name('invoice');
 });
 
 Route::get('/caraPesan', function () {

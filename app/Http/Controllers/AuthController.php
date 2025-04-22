@@ -35,7 +35,7 @@ class AuthController extends Controller
             'role' => 'user',  // Pastikan role default adalah user
         ]);
 
-        return redirect()->route('login.form')->with('success', 'Register successful!');
+        return redirect()->route('login')->with('success', 'Register successful!');
     }
 
     /**
