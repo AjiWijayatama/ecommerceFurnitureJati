@@ -8,9 +8,6 @@
       </a>
       <a href="https://www.creative-tim.com" class="simple-text logo-normal">
         Admin
-        <!-- <div class="logo-image-big">
-          <img src="../assets/img/logo-big.png">
-        </div> -->
       </a>
     </div>
     <div class="sidebar-wrapper">
@@ -22,7 +19,7 @@
           </a>
         </li>
         <li>
-          <a href="./icons.html">
+          <a href="{{route('products.index')}}">
             {{-- <i class="nc-icon nc-diamond"></i> --}}
             <p>Kelola Master Produk</p>
           </a>
