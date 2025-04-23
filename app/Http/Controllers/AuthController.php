@@ -10,7 +10,7 @@ use App\Models\User;
 class AuthController extends Controller
 {
     /**
-     * Register a new user
+     * Tampilkan halaman register
      */
 
     public function showRegisterForm()
@@ -19,7 +19,7 @@ class AuthController extends Controller
     }
 
 
-
+    // Proses Register User Baru
     public function register(Request $request)
     {
         $request->validate([
@@ -39,7 +39,7 @@ class AuthController extends Controller
     }
 
     /**
-     * Login user
+     * Tampilkan halaman form login
      */
     public function showLoginForm()
     {
@@ -48,56 +48,51 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         $request->validate([
-            'email' => 'required|email',
+            'email'    => 'required|email',
             'password' => 'required',
         ]);
-         // Tentukan email dan password admin
-        $adminEmail = 'admin1@gmail.com'; // Ganti dengan email admin yang kamu inginkan
-        $adminPassword = 'admin123'; // Ganti dengan password admin yang kamu inginkan
 
-        // Jika email yang dimasukkan adalah email admin
-        if ($request->email == $adminEmail && $request->password == $adminPassword) {
-            // Login sebagai admin secara manual
-            $user = User::where('email', $adminEmail)->first();
-            
-            if ($user) {
-                Auth::login($user); // Login user admin
+        $adminEmail    = 'admin1@gmail.com';
+        $adminPassword = 'admin123';
+
+        // Jika email dan password sama dengan admin lokal
+        if ($request->email === $adminEmail && $request->password === $adminPassword) {
+            $admin = User::where('email', $adminEmail)->first();
+            if ($admin) {
+                Auth::login($admin);
                 return redirect()->route('admin.dashboard')->with('success', 'Welcome Admin!');
-            }else {
-                return back()->with('error', 'Admin not found in the system!');
-            } 
-        }
-        // Jika bukan admin, lakukan login seperti biasa
-        $credentials = $request->only('email', 'password');
-        
-        if (Auth::attempt($credentials)) {
-            // Cek peran pengguna setelah login
-            $user = Auth::user();
-
-            // Jika admin, arahkan ke halaman dashboard admin
-            if ($user->role == 'admin') {
-                return redirect()->route('admin.dashboard')->with('success', 'Login Successful!');
             } else {
-                // Jika bukan admin, arahkan ke halaman utama
-                return redirect()->route('index')->with('success', 'Login Successful!');
+                return back()->with('error', 'Admin tidak ditemukan di database.');
             }
         }
-        // Jika email atau password salah
-        return back()->with('error', 'Email or password is incorrect!')->with('signup_message', 'Belum memiliki akun? Daftar sekarang!');
-        // Cek apakah email terdaftar di database
+
+        // Cek user biasa
         $user = User::where('email', $request->email)->first();
+
+        if (!$user) {
+            return back()->with('error', 'Akun belum terdaftar.');
+        }
+
+        if (!Hash::check($request->password, $user->password)) {
+            return back()->with('error', 'Email atau password salah.');
+        }
+
+        Auth::login($user);
+
+        return $user->role === 'admin'
+            ? redirect()->route('admin.dashboard')->with('success', 'Login sebagai admin.')
+            : redirect()->route('index')->with('success', 'Login berhasil!');
     }
 
     /**
-     * Logout user
+     * Logout user.
      */
     public function logout(Request $request)
     {
-        Auth::logout(); // Logout user dari sesi
+        Auth::logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
 
-        $request->session()->invalidate(); // Hapus sesi pengguna
-        $request->session()->regenerateToken(); // Regenerasi token CSRF untuk keamanan
-
-        return redirect()->route('produk.index'); // Redirect ke halaman utama
+        return redirect()->route('produk.index');
     }
 }
