@@ -1,4 +1,19 @@
 @extends('layouts.user')
+@section('head')
+<style>
+    .product-image {
+        object-fit: cover;
+        width: 100%;
+        height: 300px;  /* Sesuaikan ukuran sesuai kebutuhan */
+        border-radius: 8px; /* Opsional, memberikan efek rounded pada gambar */
+    }
+
+    .card-body .product-image {
+        margin-bottom: 1rem; /* Tambahkan jarak antara gambar dan teks */
+    }
+</style>
+@endsection
+
 @section('content')
 {{-- Awal Content --}}
 <section class="container mt-4">
@@ -20,7 +35,8 @@
                     @if($product->images->isNotEmpty())
                         <img src="{{ Storage::url($product->images->first()->link) }}"
                              alt="Product Image"
-                             class="product-image img-fluid">
+                             class="product-image img-fluid rounded shadow-sm"
+                             style="object-fit: cover; width: 100%; height: 300px;">
                     @else
                         <div class="product-image no-image d-flex align-items-center justify-content-center text-muted">
                             No Image

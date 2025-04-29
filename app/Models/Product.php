@@ -5,6 +5,8 @@ namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+
+
 class Product extends Model
 {
     use HasFactory;
@@ -13,11 +15,12 @@ class Product extends Model
 
     public function images()
     {
-        return $this->hasMany(Image::class);
+        return $this->hasMany(Image::class, 'product_id');
     }
 
     public function reviews()
     {
         return $this->hasMany(Review::class);
     }
+    
 }

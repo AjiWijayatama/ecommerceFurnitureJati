@@ -12,14 +12,16 @@ return new class extends Migration
     public function up()
     {
         Schema::table('products', function (Blueprint $table) {
-            $table->boolean('furniture_set')->default(false); // Menandai produk sebagai FurnitureSet atau bukan
+            $table->integer('furniture_set_id')->nullable(); // Menandai produk sebagai FurnitureSet atau bukan
+            $table->integer('minimal_stok_for_furniture_set')->nullable(); 
         });
     }
     
     public function down()
     {
         Schema::table('products', function (Blueprint $table) {
-            $table->dropColumn('furniture_set');
+            $table->dropColumn('furniture_set_id');
+            $table->dropColumn('minimal_stok_for_furniture_set');
         });
     }    
 };

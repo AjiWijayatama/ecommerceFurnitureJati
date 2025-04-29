@@ -6,8 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class OrderProduct extends Model
 {
-    use HasFactory;
-
+    public $timestamps = false; // <<< ini WAJIB
     protected $fillable = ['order_id', 'product_id', 'quantity', 'price', 'subtotal'];
 
     public function order()

@@ -65,7 +65,7 @@ class ProductController extends Controller
             'harga' => 'required|numeric|min:0',
             'stok' => 'required|integer|min:0',
             'discount' => 'nullable|integer|min:0|max:100',
-            'images.*' => 'nullable|image|mimes:jpeg,png,jpg|max:2048'
+            'images.*' => 'nullable|image|mimes:jpeg,png,jpg,svg|max:5120'
         ]);
 
         $product->update($request->only(['name', 'slug', 'deskripsi', 'kategori', 'harga','ukuran', 'stok', 'discount']));
@@ -93,6 +93,8 @@ class ProductController extends Controller
     {
         return view('admin.product.detail', compact('product'));
     }
+
+  
 }
 
 

@@ -77,7 +77,7 @@
                     
                         <div class="form-group">
                             <label for="discount">Diskon (%)</label>
-                            <input type="number" name="discount" id="discount" class="form-control @error('discount') is-invalid @enderror" value="{{ old('discount') }}">
+                            <input type="number" name="discount" id="discount" class="form-control @error('discount') is-invalid @enderror" value="{{ old('discount') }}" minimal="0">
                             @error('discount')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror

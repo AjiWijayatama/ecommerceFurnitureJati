@@ -34,11 +34,17 @@
           </a>
         </li>
         <li>
-          <a href="./notifications.html">
-            {{-- <i class="nc-icon nc-bell-55"></i> --}}
-            <p>Kelola Custom Furniture</p>
+          <a href="./map.html">
+            {{-- <i class="nc-icon nc-pin-3"></i> --}}
+            <p>Status Pembayaran Customer</p>
           </a>
         </li>
+        {{-- <li>
+          <a href="./notifications.html"> --}}
+            {{-- <i class="nc-icon nc-bell-55"></i> --}}
+            {{-- <p>Kelola Custom Furniture</p>
+          </a>
+        </li> --}}
         {{-- <li class="active ">
           <a href="./user.html">
             <i class="nc-icon nc-single-02"></i>

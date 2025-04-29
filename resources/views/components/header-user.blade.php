@@ -1,81 +1,44 @@
-<!-- AWAL HEADER -->  
-<header class="header-main-container">
-    <!-- AWAL Navbar Header -->
-    <nav class="container-header-navbar-service">
-        <ul class="container-header-item">
-           {{-- <li class="navbar-item-service">
-               <a href="caraPesan">Cara Pesan</a>
-           </li> --}}
-           <li class="navbar-item-service">
-               <a href="informasiToko">Informasi Toko</a>
-           </li>
-           <li class="navbar-item-service">
-               <a href="#">Status Pembayaran</a>
-           </li>
+<!-- HEADER -->
+<header class="bg-white shadow-sm border-bottom py-3">
+    <div class="container d-flex justify-content-between align-items-center">
 
-        </ul>
-        <div class="navbar-item-contact">
-           <a href="#">Kontak</a>
-        </div>
-    </nav>
-    <!-- END Navbar Header -->
+        <!-- Left: Brand & Navigation -->
+        <div class="d-flex align-items-center gap-4">
+            <a href="{{ url('/') }}" class="text-dark fw-bold fs-5 text-decoration-none">INDFurniture</a>
 
-    <!-- Header Column Search -->
-    <div class="container-header-column-search my-2">
-        <div class="container-logo-company">
-            <a href="#" class="navbar-logo-company">
-                IndFurniture
-            </a>
+            <nav class="d-flex gap-3">
+                <a href="informasiToko" class="text-muted text-decoration-none">Informasi Toko</a>
+                <a href="{{ route('statusPembayaran') }}" class="text-muted text-decoration-none">Status Pembayaran</a>
+                <a href="{{ route('kontak') }}" class="text-muted text-decoration-none">Kontak</a>
+            </nav>
         </div>
-        <form class="icon-searchbar">
-            <span class="search-icon material-symbols-outlined">search</span>
-            <input class="search-input" type="search" placeholder="Search">
-        </form>
-        <div class="icon-wishlist">
+
+        <!-- Right: Auth & Wishlist -->
+        <div class="d-flex align-items-center gap-3">
             @auth
-                <!-- Jika user sudah login -->
-                <span>Halo, {{ Auth::user()->name }}!</span>
-                <form action="{{ route('logout') }}" method="POST" style="display: inline;">
+                <a href="{{ route('profile.show') }}" class="text-dark text-decoration-none">
+                    Halo, {{ Auth::user()->name }}!
+                </a>
+                <a href="{{ route('user.keranjang') }}" class="d-inline-block">
+                    <img src="/icons/favorite.svg" alt="Wishlist" style="width: 22px;">
+                </a>
+                <form action="{{ route('logout') }}" method="POST" class="d-inline">
                     @csrf
-                    <button type="submit" class="btn btn-outline-secondary">Logout</button>
+                    <button class="btn btn-sm btn-outline-dark">Logout</button>
                 </form>
             @else
-                <!-- Jika user belum login -->
-                <button type="button" class="btn btn-outline-secondary" style="border: none">
-                    <a href="{{ route('login.form') }}" role="button">Masuk</a> 
-                </button>
-                <button type="button" class="btn btn-outline-secondary" style="border: none">
-                    <a href="{{ route('register.form') }}" role="button">Daftar</a> 
-                </button>
+                <a href="{{ route('login') }}" class="btn btn-sm btn-outline-dark">Masuk</a>
+                <a href="{{ route('register.form') }}" class="btn btn-sm btn-dark text-white">Daftar</a>
             @endauth
-
-            <a href="#" aria-label="Wishlist" class="navbar-logo-wishlist">
-                <img src="/icons/favorite.svg" alt="">
-            </a>
         </div>
     </div>
-    <!-- END Header Column Search -->
 
-    <!-- Header Categories -->
-    <nav class="container-header-categories">
-        <ul class="navbar-list-categories">
-            <li class="navbar-item-categories">
-                <a href="{{ route('produk.index') }}">Produk</a>
-            </li>
-            <li class="navbar-item-categories">
-                <a href="#">Custom Furniture</a>
-            </li>
-            <li class="navbar-item-categories">
-                <a href="#">Furniture set</a>
-            </li>
-            {{-- <li class="navbar-item-categories">
-                <a href="#">Perawatan Furniture</a>
-            </li> --}}
-            <li class="navbar-item-categories">
-                <a href="#">Testimoni</a>
-            </li>
-        </ul>
-    </nav>
-    <!-- END Header Categories -->
+    <!-- Category Bar -->
+    <div class="bg-light mt-3 py-2 border-top border-bottom">
+        <div class="container d-flex justify-content-center gap-4">
+            <a href="{{ route('produk.index') }}" class="text-dark text-decoration-none fw-semibold">Produk</a>
+            <a href="{{ route('customFurniture') }}" class="text-dark text-decoration-none fw-semibold">Custom Furniture</a>
+            <a href="{{ route('furnitureSet') }}" class="text-dark text-decoration-none fw-semibold">Furniture Set</a>
+        </div>
+    </div>
 </header>
-<!-- END HEADER -->

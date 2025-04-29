@@ -9,8 +9,8 @@ use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
-    use HasFactory;
-
+    use HasFactory, Notifiable;  // Gunakan trait Notifiable
+    
     protected $fillable = ['name', 'email', 'password', 'role', 'phone_number', 'address'];
 
     protected $hidden = ['password'];

@@ -101,11 +101,17 @@
 
             <!-- Main Content -->
             <div class="col-md-9 content">
-                <h2>Informasi Toko</h2>
+                <h2>Kontak</h2>
                 <div class="story-section">
                     <p>
-                        Jl. Raya Kebagusan no.10 Pasar Minggu, Jakarta Selatan. <br>
-                        Jam Operasional: 08.00 - 17.00 (Senin - Sabtu).
+                        <strong>
+                            Kontak: 08141314
+                        </strong>
+                    </p>
+                    <p>
+                        <strong>
+                            Social Media: 
+                        </strong>
                     </p>
                 </div>
             </div>

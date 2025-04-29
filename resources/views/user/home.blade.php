@@ -20,8 +20,59 @@
     <!-- DISKON -->
 
     <section class="container">
-        <h5 class="h3 card-title font-bold">Diskon</h5>
-        <div class="row justify-content-center">
+        <!-- DISKON -->
+        <section class="my-5">
+            <h5 class="h3 card-title font-bold">Diskon</h5>
+
+            @if($discountedProducts->count() > 0)
+            <div id="discountCarousel" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-inner rounded shadow overflow-hidden">
+                    @foreach($discountedProducts as $key => $product)
+                        <div class="carousel-item {{ $key == 0 ? 'active' : '' }}">
+                            <div class="position-relative" style="height: 400px;">
+                                @if($product->images->isNotEmpty())
+                                <a href="{{ route('produk.show', $product->id) }}">
+                                    <img src="{{ asset('storage/' . $product->images->first()->link) }}" 
+                                        class="d-block w-100 h-100" 
+                                        alt="{{ $product->name }}" 
+                                        style="object-fit: cover;">
+                                </a>
+                                @else
+                                    <div class="bg-light d-flex align-items-center justify-content-center w-100 h-100">
+                                        <span class="text-muted">Gambar tidak tersedia</span>
+                                    </div>
+                                @endif
+                                <div class="position-absolute bottom-0 start-0 bg-danger px-3 py-1 text-white fw-bold" style="border-bottom-right-radius: 10px;">
+                                    Diskon {{ $product->discount }}%
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+
+                <!-- Kontrol -->
+                <button class="carousel-control-prev" type="button" data-bs-target="#discountCarousel" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon bg-dark rounded-circle" style="width: 40px; height: 40px;" aria-hidden="true"></span>
+                    <span class="visually-hidden">Sebelumnya</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#discountCarousel" data-bs-slide="next">
+                    <span class="carousel-control-next-icon bg-dark rounded-circle" style="width: 40px; height: 40px;" aria-hidden="true"></span>
+                    <span class="visually-hidden">Berikutnya</span>
+                </button>
+            </div>
+            @else
+            <p class="text-center text-muted">
+                <i class="bi bi-file-earmark-x text-warning" style="font-size: 50px;"></i> <br>
+                <span class="fw-bold" style="font-size: 18px;">Belum ada produk diskon tersedia saat ini.</span>
+            </p>
+            @endif
+        </section>
+        <!-- END DISKON -->
+
+        
+          
+
+        {{-- <div class="row justify-content-center">
             <div class="col-12">
                 <div id="carouseldiskon" class="carousel slide my-3">
                     <div class="carousel-inner">
@@ -51,7 +102,7 @@
                     </button>
                   </div>
             </div>
-        </div>
+        </div> --}}
     </section>
     <!-- END DISKON -->
 
@@ -152,12 +203,16 @@
                 <h3 class="fw-bold text-uppercase">Pilih</h3>
                 <h1 class="fw-bold">Warnamu</h1>
                 <p>Temukan warna, model dan bahan sesuai selera anda</p>
-                <button class="btn btn-custom">GET PRODUCT</button>
+                <button class="btn btn-custom">
+                    <a href="{{ route('formcustom') }}">GET PRODUCT</a>
+                </button>
             </div>
             <div class="col-md-6 section right d-flex flex-column justify-content-center align-items-start">
                 <h3 class="fw-bold">Room ideas and inspiration</h3>
                 <p>Temukan inspirasi ruangan untuk rumah anda</p>
-                <button class="btn btn-custom">GET INSPIRED</button>
+                <button class="btn btn-custom">
+                    <a href="{{ route('customFurniture') }}">GET INSPIRED</a>
+                </button>
             </div>
         </div>
     </section>
