@@ -3,62 +3,65 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\FurnitureSet;
 
 class FurnitureSetController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //
+        $furnitureset = FurnitureSet::all();
+        return view('admin.furnitureSet.index', compact('furnitureset'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        //
+        return view('admin.furnitureSet.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'deskripsi' => 'nullable|string',
+            'harga' => 'required|numeric|min:0',
+        ]);
+
+        FurnitureSet::create($request->only(['name', 'deskripsi', 'harga']));
+
+        return redirect()->route('furnitureset.index')->with('success', 'Furniture Set berhasil ditambahkan.');
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(string $id)
     {
-        //
+        $furnitureSet = FurnitureSet::findOrFail($id);
+        return view('admin.furnitureSet.show', compact('furnitureSet'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(string $id)
     {
-        //
+        $furnitureSet = FurnitureSet::findOrFail($id);
+        return view('admin.furnitureSet.edit', compact('furnitureSet'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, string $id)
     {
-        //
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'deskripsi' => 'nullable|string',
+            'harga' => 'required|numeric|min:0',
+        ]);
+
+        $furnitureSet = FurnitureSet::findOrFail($id);
+        $furnitureSet->update($request->only(['name', 'deskripsi', 'harga']));
+
+        return redirect()->route('furnitureset.index')->with('success', 'Furniture Set berhasil diperbaharui.');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(string $id)
     {
-        //
+        $furnitureSet = FurnitureSet::findOrFail($id);
+        $furnitureSet->delete();
+
+        return redirect()->route('furnitureset.index')->with('success', 'Furniture Set berhasil dihapus.');
     }
 }

@@ -46,13 +46,15 @@
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
+
                         <div class="form-group">
                             <label for="ukuran">Ukuran Produk</label>
-                            <input type="text" name="ukuran" id="ukuran" class="form-control @error('ukuran') is-invalid @enderror" value="{{ old('ukuran') }}" required>
+                            <input type="text" name="ukuran" id="ukuran" class="form-control @error('ukuran') is-invalid @enderror" value="{{ old('ukuran', $product->ukuran) }}" required>
                             @error('ukuran')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
+
                         <div class="form-group">
                             <label for="slug">Slug</label>
                             <input type="text" name="slug" id="slug" class="form-control @error('slug') is-invalid @enderror" value="{{ old('slug', $product->slug) }}" required>
@@ -103,14 +105,41 @@
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
-                    
-                        <label for="images">Gambar Produk</label>
-                        <input type="file" name="images[]" id="images" class="form-control @error('images.*') is-invalid @enderror" multiple>
-                        <small class="form-text text-muted">Pilih beberapa gambar untuk produk. Maksimal 2MB per gambar.</small>
-                        @error('images.*')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                        @enderror
-                    
+
+                        <div class="form-group">
+                            <label for="images">Gambar Produk</label>
+                            <input type="file" name="images[]" id="images" class="form-control @error('images.*') is-invalid @enderror" multiple>
+                            <small class="form-text text-muted">Pilih beberapa gambar untuk produk. Maksimal 2MB per gambar.</small>
+                            @error('images.*')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+
+                        <div class="form-group">
+                            <label for="furniture_set_id">Termasuk Set Furniture</label>
+                            <select name="furniture_set_id" id="furniture_set_id" class="form-control @error('furniture_set_id') is-invalid @enderror">
+                                <option value="">-- Tidak Termasuk Set --</option>
+                                @foreach ($furnitureSets as $set)
+                                    <option value="{{ $set->id }}" {{ old('furniture_set_id', $product->furniture_set_id) == $set->id ? 'selected' : '' }}>
+                                        {{ $set->name }}
+                                    </option>
+                                @endforeach
+                            </select>
+                            @error('furniture_set_id')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+
+                        <div class="form-group">
+                            <label for="minimal_stok_for_furniture_set">Minimal Stok untuk Set Furniture</label>
+                            <input type="number" name="minimal_stok_for_furniture_set" id="minimal_stok_for_furniture_set"
+                                class="form-control @error('minimal_stok_for_furniture_set') is-invalid @enderror"
+                                value="{{ old('minimal_stok_for_furniture_set', $product->minimal_stok_for_furniture_set) }}">
+                            @error('minimal_stok_for_furniture_set')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        
                         <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
                     </form>
                 </div>
