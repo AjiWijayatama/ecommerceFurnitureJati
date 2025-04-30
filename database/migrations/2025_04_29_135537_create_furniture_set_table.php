@@ -17,6 +17,7 @@ return new class extends Migration
             $table->text('deskripsi');
             $table->decimal('harga', 10, 2);
             $table->integer('discount')->default(0);
+            $table->timestamps();
         });
     }
 

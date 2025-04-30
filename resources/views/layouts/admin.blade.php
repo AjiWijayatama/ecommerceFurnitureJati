@@ -19,6 +19,7 @@
   <link href="{{asset('templateadmin')}}/assets/css/paper-dashboard.css?v=2.0.1" rel="stylesheet" />
   <!-- CSS Just for demo purpose, don't include it in your project -->
   <link href="{{asset('templateadmin')}}/assets/demo/demo.css" rel="stylesheet" />
+  @yield('css')
 </head>
 
 <body class="">
@@ -48,6 +49,7 @@
   <!-- Control Center for Now Ui Dashboard: parallax effects, scripts for the example pages etc -->
   <script src="{{asset('templateadmin')}}/assets/js/paper-dashboard.min.js?v=2.0.1" type="text/javascript"></script><!-- Paper Dashboard DEMO methods, don't include it in your project! -->
   <script src="{{asset('templateadmin')}}/assets/demo/demo.js"></script>
+  @yield('js')
 </body>
 
 </html>

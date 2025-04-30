@@ -10,6 +10,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminDashboardController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\FurnitureSetController;
 
 Route::middleware('auth')->group(function () {
     
@@ -88,6 +89,7 @@ Route::resource('products', ProductController::class)->middleware('auth');// Kal
 Route::resource('produk', UserProductController::class);// Kalo buat sekaligus nambah index,create,store,edit,update,show,delete, tetapi harus ada 6 6 nya kalo misalnya di tambah yang lain gpp yang penting ada 6 6 nya itu
 
 
+Route::resource('furnitureset', FurnitureSetController::class);
 
 
 
@@ -124,9 +126,9 @@ Route::get('/customFurniture', function () {
     return view('user.customFurniture');
 })->name('customFurniture');
 
-Route::get('/furnitureSet', function () {
-    return view('user.furnitureSet');
-})->name('furnitureSet');
+// Route::get('/furnitureSet', function () {
+//     return view('user.furnitureSet');
+// })->name('furnitureSet');
 
 Route::get('/perawatanFurniture', function () {
     return view('perawatanFurniture');
