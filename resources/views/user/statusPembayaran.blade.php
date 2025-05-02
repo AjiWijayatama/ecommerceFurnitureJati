@@ -5,7 +5,6 @@
     <h2 class="text-center fw-bold mb-5" style="font-family: 'Playfair Display', serif; color: #4B3F2F;">
         Status Pembayaran Anda
     </h2>
-
     <div class="table-responsive shadow rounded-4">
         <table class="table table-bordered table-striped align-middle text-center mb-0">
             <thead class="table-dark" style="background-color: #4B3F2F;">
@@ -18,25 +17,36 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ([1,2,3] as $i)
+                @forelse ($orders as $order)
                 <tr>
-                    <td><strong>#INV00{{ $i }}</strong></td>
-                    <td>{{ now()->subDays($i*2)->format('d M Y') }}</td>
-                    <td>Rp{{ number_format(1500000 + $i*500000, 0, ',', '.') }}</td>
+                    <td><strong>#{{ $order->order_code }}</strong></td>
+                    <td>{{ \Carbon\Carbon::parse($order->created_at)->format('d M Y') }}</td>
+                    <td>Rp{{ number_format($order->total_harga, 0, ',', '.') }}</td>
                     <td>
                         @php
-                            $status = ['Menunggu', 'Diterima', 'Ditolak'];
-                            $badge = ['warning', 'success', 'danger'];
+                            $statusMap = [
+                                'pending' => ['label' => 'Menunggu', 'badge' => 'warning'],
+                                'paid' => ['label' => 'Diterima', 'badge' => 'success'],
+                                'failed' => ['label' => 'Ditolak', 'badge' => 'danger'],
+                            ];
+                            $currentStatus = $statusMap[$order->payment_status] ?? ['label' => 'Tidak Diketahui', 'badge' => 'secondary'];
                         @endphp
-                        <span class="badge bg-{{ $badge[$i % 3] }} px-3 py-2">
-                            {{ $status[$i % 3] }}
+                        <span class="badge bg-{{ $currentStatus['badge'] }} px-3 py-2">
+                            {{ $currentStatus['label'] }}
                         </span>
                     </td>
                     <td>
-                        <a href="#" class="btn btn-sm btn-outline-secondary">Lihat</a>
+                        <a href="{{ route('invoice.show', $order->id) }}" 
+                            class="btn btn-sm btn-outline-secondary">
+                             Lihat
+                         </a>
                     </td>
                 </tr>
-                @endforeach
+                @empty
+                <tr>
+                    <td colspan="5" class="text-center">Belum ada pesanan.</td>
+                </tr>
+                @endforelse
             </tbody>
         </table>
     </div>

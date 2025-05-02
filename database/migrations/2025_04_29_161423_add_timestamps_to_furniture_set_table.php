@@ -11,13 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('images', function (Blueprint $table) {
-            $table->id();
-            $table->string('link');
-            $table->integer('product_id')->nullable();
-            $table->integer('furniture_set_id')->nullable();;
-
-            $table->timestamps();
+        Schema::table('furniture_set', function (Blueprint $table) {
+            $table->timestamps(); // akan menambah created_at & updated_at
         });
     }
 
@@ -26,6 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('images');
+        Schema::table('furniture_set', function (Blueprint $table) {
+            $table->dropTimestamps();
+        });
     }
 };

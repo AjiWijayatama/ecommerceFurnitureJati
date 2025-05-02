@@ -12,7 +12,7 @@ class Order extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['user_id', 'order_code', 'total_harga', 'status', 'payment_status', 'maximal_pembayaran', 'alamat_pengiriman'];
+    protected $fillable = ['user_id', 'order_code', 'total_harga', 'status', 'payment_status', 'maximal_pembayaran', 'alamat_pengiriman','payment_proof'];
 
     public function user()
     {
@@ -22,5 +22,14 @@ class Order extends Model
     public function orderProducts()
     {
         return $this->hasMany(OrderProduct::class);
+    }
+    public function products()
+    {
+        return $this->belongsToMany(Product::class, 'order_products');
+    }
+
+    public function furnitureSets()
+    {
+        return $this->belongsToMany(FurnitureSet::class, 'order_products');
     }
 }

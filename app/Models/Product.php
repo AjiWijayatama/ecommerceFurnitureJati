@@ -11,7 +11,7 @@ class Product extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'slug', 'deskripsi', 'kategori', 'harga', 'ukuran', 'stok', 'discount'];
+    protected $fillable = ['name', 'slug', 'deskripsi', 'kategori', 'harga', 'ukuran', 'stok', 'discount','furniture_set_id', ' '];
 
     public function images()
     {
@@ -22,5 +22,8 @@ class Product extends Model
     {
         return $this->hasMany(Review::class);
     }
-    
+    public function furnitureSet()
+    {
+        return $this->belongsTo(FurnitureSet::class, 'furniture_set_id');
+    }
 }

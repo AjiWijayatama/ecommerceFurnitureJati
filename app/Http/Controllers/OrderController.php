@@ -35,13 +35,21 @@ class OrderController extends Controller
     {
         $order = Order::findOrFail($id);
 
-        if ($order->payment_status !== 'pending') {
+        if (!in_array($order->payment_status, ['pending', 'waiting_verification'])) {
             return back()->with('error', 'Pembayaran sudah diproses sebelumnya.');
+        }
+
+         // Restore stok: untuk tiap product di order, kembalikan quantity
+        foreach ($order->orderProducts as $item) {
+            // pastikan produk masih ada
+            if ($item->product) {
+                $item->product->increment('stok', $item->quantity);
+            }
         }
 
         $order->update([
             'payment_status' => 'failed',
-            'status' => 'waiting_confirmation',
+            'status' => 'completed',
         ]);
 
         return redirect()->route('payment.proofs')->with('success', 'Pembayaran berhasil ditolak.');

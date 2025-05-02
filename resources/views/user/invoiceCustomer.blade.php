@@ -181,7 +181,11 @@
             <!-- Pembayaran Button -->
             <form action="{{ route('userproduct.bayarInvoice') }}" method="POST" class="text-center mt-4">
               @csrf
-              <input type="hidden" name="product_id" value="{{ $product->id }}">
+              @if(isset($product->products))
+                <input type="hidden" name="set_id"     value="{{ $product->id }}">
+              @else
+                <input type="hidden" name="product_id" value="{{ $product->id }}">
+              @endif
               <input type="hidden" name="rekening_id" value="1">
               <input type="hidden" name="tenggat_pembayaran" value="{{ \Carbon\Carbon::now()->addDays(1)->toDateString() }}">
               <input type="hidden" name="quantity" value="{{ $quantity }}">

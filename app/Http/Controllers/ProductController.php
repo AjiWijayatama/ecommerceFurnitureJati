@@ -2,13 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
-use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Image;
-
+use App\Models\FurnitureSet;
 
 class ProductController extends Controller
 {
@@ -20,7 +17,8 @@ class ProductController extends Controller
 
     public function create()
     {
-        return view('admin.product.create');
+        $furnitureSets = FurnitureSet::all(); 
+        return view('admin.product.create', compact('furnitureSets'));
     }
 
     public function store(Request $request)
@@ -34,10 +32,15 @@ class ProductController extends Controller
             'ukuran' => 'required|string|max:255',
             'stok' => 'required|integer|min:0',
             'discount' => 'nullable|integer|min:0|max:100',
-            'images.*' => 'nullable|image|mimes:jpeg,png,jpg|max:2048'
+            'furniture_set_id' => 'nullable|exists:furniture_set,id',
+            'minimal_stok_for_furniture_set' => 'nullable|integer|min:0',
+            'images.*' => 'nullable|image|mimes:jpeg,png,jpg|max:5120'
         ]);
 
-        $product = Product::create($request->only(['name', 'slug', 'deskripsi', 'kategori', 'harga','ukuran', 'stok', 'discount']));
+        $product = Product::create($request->only([
+            'name', 'slug', 'deskripsi', 'kategori', 'harga', 'ukuran',
+            'stok', 'discount', 'furniture_set_id', 'minimal_stok_for_furniture_set'
+        ]));
 
         if ($request->hasFile('images')) {
             foreach ($request->file('images') as $image) {
@@ -51,7 +54,8 @@ class ProductController extends Controller
 
     public function edit(Product $product)
     {
-        return view('admin.product.edit', compact('product'));
+        $furnitureSets = FurnitureSet::all();
+        return view('admin.product.edit', compact('product', 'furnitureSets'));
     }
 
     public function update(Request $request, Product $product)
@@ -65,10 +69,15 @@ class ProductController extends Controller
             'harga' => 'required|numeric|min:0',
             'stok' => 'required|integer|min:0',
             'discount' => 'nullable|integer|min:0|max:100',
+            'furniture_set_id' => 'nullable|exists:furniture_set,id',
+            'minimal_stok_for_furniture_set' => 'nullable|integer|min:0',
             'images.*' => 'nullable|image|mimes:jpeg,png,jpg,svg|max:5120'
         ]);
 
-        $product->update($request->only(['name', 'slug', 'deskripsi', 'kategori', 'harga','ukuran', 'stok', 'discount']));
+        $product->update($request->only([
+            'name', 'slug', 'deskripsi', 'kategori', 'harga', 'ukuran',
+            'stok', 'discount', 'furniture_set_id', 'minimal_stok_for_furniture_set'
+        ]));
 
         if ($request->hasFile('images')) {
             $product->images()->delete();
@@ -78,7 +87,7 @@ class ProductController extends Controller
             }
         }
 
-        return redirect()->route('products.index')->with('success', 'Produk berhasil di Perbaharui.');
+        return redirect()->route('products.index')->with('success', 'Produk berhasil diperbaharui.');
     }
 
     public function destroy(Product $product)
@@ -93,10 +102,4 @@ class ProductController extends Controller
     {
         return view('admin.product.detail', compact('product'));
     }
-
-  
 }
-
-
-
-

@@ -36,13 +36,29 @@
                     <tr class="text-center">
                         <td>{{ $order->user->name }}</td>
                         <td>
-                            <ul class="list-unstyled mb-0">
-                                @foreach ($order->orderProducts as $item)
-                                    <li>{{ $item->product->name }} (x{{ $item->quantity }})</li>
-                                @endforeach
-                            </ul>
+                            @php
+                            $hasItems = $order->orderProducts->isNotEmpty();
+                            @endphp
+                            @if(\Illuminate\Support\Str::startsWith($order->order_code, 'SET-'))
+                                @php
+                                    $firstProd = $order->orderProducts->first()->product;
+                                    // Gunakan relasi furnitureSet (singular) sesuai model
+                                    $setName   = $firstProd->furnitureSet->name ?? 'Nama Set Tidak Diketahui';
+                                    $qty       = $order->orderProducts->first()->quantity;
+                                @endphp
+                                {{ $setName }} (×{{ $qty }})
+                            @else
+                                <ul class="list-unstyled mb-0">
+                                    @foreach ($order->orderProducts as $item)
+                                        <li>{{ $item->product->name ?? 'Produk tidak ditemukan' }} (×{{ $item->quantity }})</li>
+                                    @endforeach
+                                </ul>
+                            @endif
                         </td>
-                        <td>Rp {{ number_format($order->total_harga, 0, ',', '.') }}</td>
+                        {{-- Hitung ulang total harga berdasarkan price * quantity --}}
+                        <td>
+                            Rp {{ number_format($order->total_harga, 0, ',', '.') }}
+                        </td>
             
                         {{-- Payment Status --}}
                         <td>
@@ -85,7 +101,6 @@
                                         @method('PATCH')
                                         <button type="submit" class="btn btn-sm btn-outline-success">Verifikasi</button>
                                     </form>
-            
                                     <form method="POST" action="{{ route('payment.reject', $order->id) }}">
                                         @csrf
                                         @method('PATCH')

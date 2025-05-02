@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth; // Pastikan ini di bagian atas
 use Illuminate\Support\Facades\Mail;
 use App\Mail\InvoiceMail;
+use App\Models\FurnitureSet;
 use App\Models\Product;
 use App\Models\OrderProduct;
 use App\Models\Image;
@@ -49,6 +50,43 @@ class UserProductController extends Controller
         return view('detailProduk',compact('product'));
     }
 
+
+    public function showInvoice($id)
+    {
+        $order = Order::with('orderProducts.product')->findOrFail($id);
+        
+        $user  = auth()->user();
+
+        // Pastikan data ditemukan
+        if (!$order) {
+            abort(404, 'Order tidak ditemukan');
+        }
+
+        // Ambil item pertama (atau bisa perulangan untuk beberapa produk)
+        $item = $order->orderProducts->first();
+        if (!$item) {
+            abort(404, 'Tidak ada produk di order ini.');
+        }
+
+        // Tentukan apakah ini produk tunggal atau furniture set
+        if ($item->product) {
+            $product = $item->product;
+        } elseif ($item->furnitureSet) {
+            $product = $item->furnitureSet;
+        } else {
+            abort(404, 'Produk tidak ditemukan.');
+        }
+
+        $quantity   = $item->quantity;
+        $totalHarga = $order->total_harga;
+
+        return view('user.invoiceCustomer', compact('order', 'user', 'product', 'quantity', 'totalHarga'));
+    }
+
+
+
+
+
     /**
      * Show the form for editing the specified resource.
      */
@@ -65,72 +103,98 @@ class UserProductController extends Controller
         //
     }   
 
-    /**
-     * Remove the specified resource from storage.
-     */
+   
     public function destroy(string $id)
     {
         //
     }
 
-    // public function invoice()
-    // {
-    //     $products = Product::all();
-    //     $user = Auth::user(); // Ambil data user yang sedang login
-
-    //     return view('user.invoiceCustomer', compact('products', 'user'));
-    // }
     public function invoice(Request $request)
     {
-        $product = Product::findOrFail($request->product_id);
-        $quantity = $request->quantity;
-        $user = Auth::user();
+        $user     = Auth::user();
+        $quantity = $request->input('quantity');
+
+        if ($request->filled('set_id')) {
+            // Load furniture set
+            $product = FurnitureSet::with('images')->findOrFail($request->set_id);
+        } else {
+            // Load produk biasa
+            $product = Product::findOrFail($request->product_id);
+        }
+
         return view('user.invoiceCustomer', compact('product', 'quantity', 'user'));
     }
+
     public function bayarInvoice(Request $request)
     {
-        // Ambil user yang sedang login
-        $user = auth()->user();
-
-        // Ambil data dari form
-        $product_id = $request->input('product_id');
-        $quantity = $request->input('quantity'); // tambahkan ini
-        $rekening_id = $request->input('rekening_id'); // kalau kamu butuh nanti
+        $user              = auth()->user();
+        $qty               = $request->input('quantity');
         $tenggat_pembayaran = $request->input('tenggat_pembayaran');
 
-        // Ambil produk
-        $product = Product::findOrFail($product_id);
+        // Tentukan prefix berdasarkan apakah beli furniture set atau produk
+        $prefix = $request->filled('set_id') ? 'SET-' : 'PROD-';
 
-        // Buat order baru
-        $order = new Order();
-        $order->user_id = $user->id;
-        $order->order_code = 'INV-' . strtoupper(uniqid());
-        $order->total_harga = $product->harga; // asumsinya 1 item. Kalau banyak, bisa dikalikan jumlah.
-        $order->status = 'waiting_confirmation';
-        $order->payment_status = 'pending';
-        $order->alamat_pengiriman = $user->address;
-        $order->maximal_pembayaran = $tenggat_pembayaran;
-        $order->save();
-
-        \App\Models\OrderProduct::create([
-            'order_id' => $order->id,
-            'product_id' => $product->id,
-            'quantity' => $quantity,
-            'price' => $product->harga,
-            'subtotal' => $product->harga * $quantity,
+        // 1) Buat order tanpa total_harga dulu
+        $order = Order::create([
+            'user_id'           => $user->id,
+            'order_code'        => $prefix . strtoupper(uniqid()),
+            'total_harga'       => 0,                          // **CHANGED**
+            'status'            => 'waiting_confirmation',
+            'payment_status'    => 'pending',
+            'alamat_pengiriman' => $user->address,
+            'maximal_pembayaran'=> $tenggat_pembayaran,
         ]);
-        // Mail::to($user->email)->send(new InvoiceMail($order, $product, $quantity));
 
-        
+        if ($request->filled('set_id')) {
+            // **CHANGED**: proses furniture set
+            $set = FurnitureSet::with('products')->findOrFail($request->set_id);
 
-    
-        // Kirim data ke view upload_bukti
+            foreach ($set->products as $prod) {
+                OrderProduct::create([
+                    'order_id'   => $order->id,
+                    'product_id' => $prod->id,
+                    'quantity'   => $qty,
+                    'price'      => $prod->harga,
+                    'subtotal'   => $prod->harga * $qty,
+                ]);
+                $prod->decrement('stok', $qty);
+            }
+
+            // **CHANGED**: update total_harga sesuai harga set
+            $order->update(['total_harga' => $set->harga * $qty]);
+
+            return view('user.upload_bukti', [
+                'order'   => $order,
+                'product' => $set,       // **CHANGED**: passing furniture set
+                'tenggat' => \Carbon\Carbon::parse($tenggat_pembayaran)->format('d M Y, H:i'),
+            ]);
+        }
+
+        // original: pembelian produk tunggal
+        $prod     = Product::findOrFail($request->product_id);
+        $subtotal = $prod->harga * $qty;
+
+        OrderProduct::create([
+            'order_id'   => $order->id,
+            'product_id' => $prod->id,
+            'quantity'   => $qty,
+            'price'      => $prod->harga,
+            'subtotal'   => $subtotal,
+        ]);
+        $prod->decrement('stok', $qty);
+
+        // **CHANGED**: update total_harga setelah create OrderProduct
+        $order->update(['total_harga' => $subtotal]);
+
         return view('user.upload_bukti', [
-            'order' => $order,
-            'product' => $product,
-            'tenggat' => \Carbon\Carbon::parse($tenggat_pembayaran)->format('d M Y, H:i')
+            'order'   => $order,
+            'product' => $prod,
+            'tenggat' => \Carbon\Carbon::parse($tenggat_pembayaran)->format('d M Y, H:i'),
         ]);
     }
+
+
+    
     public function uploadBukti(Request $request)
     {
         $request->validate([
@@ -151,5 +215,15 @@ class UserProductController extends Controller
         return redirect()->route('user.home')->with('success', 'Bukti pembayaran berhasil diupload.');
     }
     
+    public function statusPembayaran()
+    {
+        $user = auth()->user();
+        $orders = Order::where('user_id', $user->id)
+                    ->latest()
+                    ->get();
+
+        return view('user.statusPembayaran', compact('orders'));
+    }
 
 }
+// Mail::to($user->email)->send(new InvoiceMail($order, $product, $quantity));

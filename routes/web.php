@@ -10,6 +10,8 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminDashboardController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\FurnitureSetController;
+use App\Http\Controllers\UserFurnitureSetController;
 
 Route::middleware('auth')->group(function () {
     
@@ -62,8 +64,10 @@ Route::get('/admin-review', function () {
     return view('admin.review');
 });
 
-Route::get('/invoiceCustomer', [UserProductController::class, 'invoice'])->name('user.invoice');
+
 // Untuk "Beli Sekarang" 1 produk
+Route::get('/invoice/{id}', [UserProductController::class, 'showInvoice'])
+     ->name('invoice.show');
 Route::post('/invoice', [UserProductController::class, 'invoice'])->name('invoice');
 
 // Untuk "Checkout Keranjang"
@@ -87,7 +91,7 @@ Route::view('/admin/kelola-custom', 'admin.kelolacustomfurniture');
 Route::resource('products', ProductController::class)->middleware('auth');// Kalo buat sekaligus nambah index,create,store,edit,update,show,delete, tetapi harus ada 6 6 nya kalo misalnya di tambah yang lain gpp yang penting ada 6 6 nya itu
 Route::resource('produk', UserProductController::class);// Kalo buat sekaligus nambah index,create,store,edit,update,show,delete, tetapi harus ada 6 6 nya kalo misalnya di tambah yang lain gpp yang penting ada 6 6 nya itu
 
-
+Route::resource('furnitureset', FurnitureSetController::class);
 
 
 
@@ -111,9 +115,7 @@ Route::get('/informasiToko', function () {
 Route::get('/kontak', function () {
     return view('user.kontak');
 })->name('kontak');
-Route::get('/statusPembayaran', function () {
-    return view('user.statusPembayaran');
-})->name('statusPembayaran');
+Route::get('/statusPembayaran', [UserProductController::class, 'statusPembayaran'])->name('statusPembayaran');
 // Route::get('/produk', function () {
 //     return view('produk');
 // });
@@ -124,9 +126,7 @@ Route::get('/customFurniture', function () {
     return view('user.customFurniture');
 })->name('customFurniture');
 
-Route::get('/furnitureSet', function () {
-    return view('user.furnitureSet');
-})->name('furnitureSet');
+Route::resource('userfurnitureset', UserFurnitureSetController::class);
 
 Route::get('/perawatanFurniture', function () {
     return view('perawatanFurniture');

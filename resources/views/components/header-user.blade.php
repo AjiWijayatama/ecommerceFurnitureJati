@@ -19,8 +19,8 @@
                 <a href="{{ route('profile.show') }}" class="text-dark text-decoration-none">
                     Halo, {{ Auth::user()->name }}!
                 </a>
-                <a href="{{ route('user.keranjang') }}" class="d-inline-block">
-                    <img src="/icons/favorite.svg" alt="Wishlist" style="width: 22px;">
+                <a href="{{ route('cart.index') }}" class="d-inline-block">
+                    <img src="/icons/favorite.svg" alt="Keranjang Saya" style="width: 22px;">
                 </a>
                 <form action="{{ route('logout') }}" method="POST" class="d-inline">
                     @csrf
@@ -38,7 +38,7 @@
         <div class="container d-flex justify-content-center gap-4">
             <a href="{{ route('produk.index') }}" class="text-dark text-decoration-none fw-semibold">Produk</a>
             <a href="{{ route('customFurniture') }}" class="text-dark text-decoration-none fw-semibold">Custom Furniture</a>
-            <a href="{{ route('furnitureSet') }}" class="text-dark text-decoration-none fw-semibold">Furniture Set</a>
+            <a href="{{ route('userfurnitureset.index') }}" class="text-dark text-decoration-none fw-semibold">Furniture Set</a>
         </div>
     </div>
 </header>

@@ -71,16 +71,26 @@ class CartController extends Controller
     public function remove($orderProductId)
     {
         $orderProduct = OrderProduct::findOrFail($orderProductId);
-        $order = $orderProduct->order;
+        $order        = $orderProduct->order;
 
+        // Hapus OrderProduct
         $orderProduct->delete();
 
-        // Update total harga setelah produk dihapus
-        $order->total_harga = $order->orderProducts()->sum('subtotal');
-        $order->save();
+        // Cek sisa OrderProduct
+        $remainingItems = $order->orderProducts()->count();
+
+        if ($remainingItems > 0) {
+            // Masih ada item: update total_harga
+            $order->total_harga = $order->orderProducts()->sum('subtotal');
+            $order->save();
+        } else {
+            // Tidak ada item tersisa: hapus order sepenuhnya
+            $order->delete();
+        }
 
         return redirect()->back()->with('success', 'Produk dihapus dari keranjang.');
     }
+
 
     public function checkoutCart()
     {

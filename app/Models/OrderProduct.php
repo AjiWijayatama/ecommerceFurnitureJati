@@ -18,4 +18,8 @@ class OrderProduct extends Model
     {
         return $this->belongsTo(Product::class);
     }
+    public function furnitureSet()
+    {
+        return $this->belongsTo(FurnitureSet::class, 'set_id');
+    }
 }
